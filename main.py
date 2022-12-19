@@ -33,7 +33,7 @@ bad = 0
 brands = {"toyota": fav, "honda": fav, "chevrolet": med, "ford": fav, "mercedes-benz": bad,
           "jeep": med, "bmw": bad, "porsche": bad, "subaru": med, "nissan": med,
           "volkswagen": med, "lexus": med, "acura": med, "dodge": bad, "hyundai": med,
-          "mazda": bad, "tesla": bad, "kia": bad, "infiniti": med, "mitsubishi": bad,
+          "mazda": bad, "tesla": fav, "kia": bad, "infiniti": med, "mitsubishi": bad,
           "mini": bad, "fiat": bad, "chrysler": bad, "buick": med, "lincoln": bad, "audi": bad,
           "ram": bad, "scion": med, "alfa": bad, "land": bad, "cadillac": bad, "smart": bad,
           "volvo": bad, "hummer": bad, "gmc": bad}
@@ -98,7 +98,6 @@ if __name__ == "__main__":
 
 # list of things to do
 # TODO scrape more data from each page
-# TODO optimize code efficiency
 # TODO test functionality on wider parameters and different parameters
 # TODO build a database (mongo db? db lite?)
 # TODO build a server
@@ -109,4 +108,3 @@ if __name__ == "__main__":
 
 # small things
 # TODO scrape lowbook
-# TODO make abstract search class

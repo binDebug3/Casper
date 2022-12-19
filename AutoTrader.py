@@ -1,5 +1,6 @@
 from main import brands, websites
 from Car import Car
+import Search
 
 import time
 import Compresser
@@ -47,6 +48,7 @@ class AutoTrader(object):
         print("\n\nScanning AutoTrader")
         self.website = websites["AutoTrader"]
         self.driver.get(self.website)
+        time.sleep(5)
         print(self.website)
         # call methods that scrape the website to build parameter lists
         self.cars = []
@@ -266,7 +268,7 @@ class AutoTrader(object):
         imageClass = "image-vertically-aligned"
         for i in range(1, self.resCount // 4 + 2):
             self.driver.execute_script("window.scrollTo(0, " + str(i*1000) + ")")
-            time.sleep(0.1)
+            time.sleep(0.2)
         imageElems = self.driver.find_elements(By.CLASS_NAME, imageClass)
 
         for elem in imageElems:
