@@ -229,6 +229,8 @@ class CarGuru(object):
         linkElems = self.driver.find_elements(By.XPATH, linkPath)[4:]
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
+            elem.click()
+            time.sleep(100)
         return links
 
     def findImages(self):

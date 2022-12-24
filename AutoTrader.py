@@ -9,7 +9,7 @@ import math
 
 import urllib.request
 from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
@@ -254,7 +254,12 @@ class AutoTrader(object):
         linkPath = "//div[@class='display-flex justify-content-between']/a"
         linkElems = self.driver.find_elements(By.XPATH, linkPath)
         for elem in linkElems:
-            links.append(elem.get_attribute('href'))
+            carDetails = elem.get_attribute('href')
+            links.append(carDetails)
+            self.driver.execute_script("window.open('about:blank','_blank');")
+            all_handles = self.driver.window_handles
+            self.driver.switch_to.window(all_handles[1])
+            self.driver.get(carDetails)
         return links
 
     def findImages(self):
@@ -371,7 +376,10 @@ class AutoTrader(object):
                 car.setModel(self.findModel(car.nameList, car.brand))
                 car.setYear(self.findYear(car.nameList))
                 car.setSource("AutoTrader")
-                car.setImage(self.images[i])
+                if i < len(self.images):
+                    car.setImage(self.images[i])
+                else:
+                    car.setImage("Image not found")
                 car.setScore()
                 self.cars.append(car)
             # thing = self.driver.find_element(By.CSS_SELECTOR, "[aria-label='Next Page']")

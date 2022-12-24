@@ -61,7 +61,7 @@ websites = {
                           p["zipCode"] + "&distance=" + p["radius"] + "&qString=Price" + cdp["1050"] + "Year" +
                           cdy["0023"] + "Mileage" + cdm["50000"] +
                           "&keywords=&pageNum=1&sortColumn=Default&sortDirection=ASC&makeName=&modelName="}
-selector = [0, 1, 2, 3]
+selector = [0]
 
 
 if __name__ == "__main__":
@@ -108,3 +108,5 @@ if __name__ == "__main__":
 
 # small things
 # TODO scrape lowbook
+# TODO details on carguru
+# TODO details on carsdirect

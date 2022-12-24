@@ -1,6 +1,7 @@
 import time
 import math
 import pandas as pd
+from selenium.webdriver import ActionChains
 
 import Car
 import main
@@ -199,6 +200,15 @@ class KSL(object):
             text = elem.text.split()
             if len(text) > 0 and text[0].isdigit():
                 links.append(elem.get_attribute('href'))
+                # elem.click()
+                # time.sleep(5)
+                # debot = self.driver.find_elements((By.XPATH, "//p[text()='Press & Hold']"))[3]
+                # action = ActionChains(self.driver)
+                # action.click_and_hold(debot)
+                # action.perform()
+                # print("Holding for 5 seconds")
+                # time.sleep(5)
+                # action.release(debot)
         return links
 
     def findImages(self):
@@ -315,29 +325,3 @@ class KSL(object):
         # export new Car list to CSV
         if len(self.cars) > 0:
             self.toCSV(sorted(self.cars, key=lambda x: x.score)[::-1])
-
-
-# THIS IS WHEN I REALIZED THAT THE SEARCH BASE CLASS WOULD NOT WORK
-
-# class KSL2(Search):
-#     def __init__(self):
-#         p = main.p
-#         self.webName = "KSL"
-#         self.website = "https://cars.ksl.com/search/yearFrom/" + p["minYear"] + "/yearTo/" + str(p["currentYear"]) + \
-#                    "/mileageFrom/0/mileageTo/" + p["maxMiles"] + "/priceFrom/" + p["minPrice"] + "/priceTo/" + \
-#                    p["maxPrice"] + "/city/" + p["city"] + "/state/" + p["state"].upper()
-#         self.searchBy = {
-#             "count": "results-text-container",
-#             "prices": "first-price",
-#             "miles": "item-card-specifications",
-#             "names": "text-size-sm-500",
-#             "links": "//div[@class='display-flex justify-content-between']/a"
-#         }
-#         super().__init__(self.webName, self.website)
-#         self.resCount = self.getCount(self.searchBy["count"])
-#         self.prices = self.findPrices(self.searchBy["prices"])
-#         self.miles = self.findMiles(self.searchBy["miles"])
-#         self.names = self.findNames(self.searchBy["names"])
-#         self.links = self.findLinks(self.searchBy["links"])
-#         # self.findImages("image-vertically-aligned")
-#         self.updateBool()
