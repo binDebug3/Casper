@@ -4,13 +4,18 @@ import math
 import pandas as pd
 from datetime import date
 
+from selenium.webdriver import ActionChains
+
 import Car
 import main
 
 from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.common import NoSuchElementException
+from selenium.common import NoSuchElementException, ElementClickInterceptedException
+
+from Casper.CD_Detail import CD_Detail
+
 
 class CarsDirect(object):
     def __init__(self):
@@ -47,8 +52,8 @@ class CarsDirect(object):
         self.names = self.findNames()
         self.prices = self.findPrices()
         self.miles = self.findMiles()
-        self.links = self.findLinks()
         self.images = self.findImages()
+        self.links, self.carDetails = self.findLinks()
 
         # page number not currently necessary and not functional for this site
         # self.pages, self.pageElems = self.getPages()
@@ -232,14 +237,30 @@ class CarsDirect(object):
         :return: links (list): list of link strings
         """
         links = []
+        carDetails = []
+        actions = ActionChains(self.driver)
         linkPath = "detail-price"
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.CLASS_NAME, linkPath)
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
-            elem.click()
-            time.sleep(100)
-        return links
+        for i in range(len(links)):
+            print(f"(Car {i}) Checking: {self.names[i]}")
+            try:
+                elem = self.driver.find_elements(By.CLASS_NAME, linkPath)[i]
+                actions.move_to_element(elem).perform()
+                print(elem.text)
+                print(elem.get_attribute('href'))
+                time.sleep(3)
+                carDetails.append(CD_Detail(self.driver, elem))
+            except ElementClickInterceptedException as ex:
+                print("Dip and weave!")
+                print(ex.msg)
+                time.sleep(30)
+                print("\tREFRESHING PAGE")
+                self.driver.refresh()
+                time.sleep(2)
+        return links, carDetails
 
     def findImages(self):
         """
@@ -251,7 +272,7 @@ class CarsDirect(object):
         images = []
         imageClass = "//a[@class='list-img']/span/img"
         imageElems = self.driver.find_elements(By.XPATH, imageClass)
-        # debugging print
+        # debugging statement
         count = 0
         for elem in imageElems:
             filePath = "Images/" + str(date.today()).replace("-", "_") + "_" + \
@@ -292,7 +313,7 @@ class CarsDirect(object):
                 IDS.append(id)
             elif isinstance(id, str) and id.isdigit():
                 IDS.append(int(id))
-        # visibility debugging print
+        # visibility debugging statement
         print(f"There are {len(IDS)} cars already in the table")
 
         # build list of car objects based on the list of IDs corresponding to new cars
@@ -335,7 +356,7 @@ class CarsDirect(object):
 
     def peruseCars(self, send=True):
         if not send:
-            print("I will not update the CSV file on this round.")
+            print("I will not update the CSV file this time around.")
             self.export = False
         # for each car on each page, build a Car object and set all of its attributes
         count = 0
@@ -352,6 +373,7 @@ class CarsDirect(object):
                 car.setYear(self.findYear(car.nameList))
                 car.setSource("CarsDirect")
                 car.setScore()
+                car.setAddDetail(self.carDetails[i])
                 self.cars.append(car)
             # load the next page
             count = 1

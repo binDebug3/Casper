@@ -44,6 +44,7 @@ class Car(object):
         self.score = 0
         self.link = ""
         self.image = ""
+        self.addDetails = ""
 
     # SETTERS
     def setBrand(self, brand):
@@ -152,6 +153,8 @@ class Car(object):
         :return:
         """
         self.image = imagePath
+    def setAddDetail(self, details):
+        self.addDetails = details
 
     # ASSIGN SCORE OUT OF 100
     def setScore(self):
