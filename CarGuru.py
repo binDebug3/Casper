@@ -12,8 +12,10 @@ from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.common import NoSuchElementException
+from selenium.common import NoSuchElementException, ElementClickInterceptedException
 from abc import ABCMeta
+
+from Casper.CG_Detail import CG_Detail
 
 
 class CarGuru(object):
@@ -224,13 +226,32 @@ class CarGuru(object):
         :return: links (list): list of link strings
         """
         links = []
+        carDetails = []
+        actions = ActionChains(self.driver)
         linkPath = "//div[@class='MOfIEd XcutUU prRsnF']/a"
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.XPATH, linkPath)[4:]
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
-            elem.click()
-            time.sleep(100)
+        for i in range(len(links)):
+            print(f"(Car {i}) Checking: {self.names[i]}")
+            try:
+                elem = self.driver.find_elements(By.XPATH, linkPath)[4+i]
+                actions.move_to_element(elem).perform()
+                # print(elem.text)
+                print(elem.get_attribute('href'))
+                time.sleep(0.5)
+                visible = CG_Detail(self.driver, elem)
+                carDetails.append(visible)
+                print(visible)
+            except ElementClickInterceptedException as ex:
+                print("Dip and weave!")
+                print(ex.msg)
+                print("You have 30 seconds to figure out what's wrong")
+                time.sleep(30)
+                print("\tREFRESHING PAGE")
+                self.driver.refresh()
+                time.sleep(2)
         return links
 
     def findImages(self):
