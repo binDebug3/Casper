@@ -1,27 +1,43 @@
 from selenium.webdriver.common.by import By
 
-class CD_Detail(object):
+class KSL_Detail(object):
     def __init__(self, driver, link):
+        self.link = link.get_attribute('href')
         self.driver = driver
         link.click()
+        self.date = ""
+        self.city = ""
         self.trim = ""
+        self.body = ""
+        self.cab_type = ""
+        self.bed = ""
+        self.e_condition = ""
+        self.i_condition = ""
+        self.drive_type = ""
+        self.dealer_licence = ""
+        self.stock_id = ""
+        self.transmission = ""
+        self.liters = ""
+        self.cylinders = ""
+        self.fuel_type = ""
+        self.doors = ""
+        self.belts = ""
+        self.vin = ""
+        self.title = ""
         self.exterior = ""
         self.interior = ""
-        self.transmission = ""
-        self.engine = ""
-        self.certified = ""
-        self.doors = ""
-        self.vin = ""
-        self.stock_id = ""
-        self.link = link
         self.comments = self.findComments()
-        self.features = self.findFeatures()
 
         self.findAttributes()
         self.driver.back()
 
     def findAttributes(self):
+        buttonClass = "seeMore"
         attPath = "//div[@class='top']/div/dl/dd"
+        seeMore = self.driver.find_element(By.CLASS_NAME, buttonClass)
+        if seeMore is not None:
+            seeMore.click()
+            "//div[@class='MuiGrid-root jss144']/p"
         attElems = self.driver.find_elements(By.XPATH, attPath)
         self.trim = attElems[0].text
         self.transmission = attElems[1].text

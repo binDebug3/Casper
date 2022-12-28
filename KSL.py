@@ -46,8 +46,8 @@ class KSL(object):
         self.names = self.findNames()
         self.prices = self.findPrices()
         self.miles = self.findMiles()
+        # self.images = self.findImages()
         self.links = self.findLinks()
-        self.images = self.findImages()
 
         # page number not currently necessary and not functional for this site
         # self.pages, self.pageElems = self.getPages()
@@ -209,6 +209,15 @@ class KSL(object):
                 # print("Holding for 5 seconds")
                 # time.sleep(5)
                 # action.release(debot)
+        for i in range(len(links)):
+            self.driver.close()
+            self.driver = webdriver.Chrome()
+            # self.driver = webdriver.Chrome()
+            print(links[i])
+            self.driver.get(links[i])
+            # wait for page to load
+            time.sleep(1)
+
         return links
 
     def findImages(self):

@@ -56,9 +56,8 @@ class AutoTrader(object):
         self.names = self.findNames()
         self.prices = self.findPrices()
         self.miles = self.findMiles()
-        self.links = self.findLinks()
-        # images are not fully functional for this site
         self.images = self.findImages()
+        self.links = self.findLinks()
 
         # page number not currently necessary and not functional for this site
         # self.numPages, self.nextPage = self.getPages()
@@ -256,10 +255,10 @@ class AutoTrader(object):
         for elem in linkElems:
             carDetails = elem.get_attribute('href')
             links.append(carDetails)
-            self.driver.execute_script("window.open('about:blank','_blank');")
-            all_handles = self.driver.window_handles
-            self.driver.switch_to.window(all_handles[1])
-            self.driver.get(carDetails)
+            # self.driver.execute_script("window.open('about:blank','_blank');")
+            # all_handles = self.driver.window_handles
+            # self.driver.switch_to.window(all_handles[1])
+            # self.driver.get(carDetails)
         return links
 
     def findImages(self):
