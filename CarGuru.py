@@ -233,25 +233,25 @@ class CarGuru(object):
         linkElems = self.driver.find_elements(By.XPATH, linkPath)[4:]
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
-        for i in range(len(links)):
-            print(f"(Car {i}) Checking: {self.names[i]}")
-            try:
-                elem = self.driver.find_elements(By.XPATH, linkPath)[4+i]
-                actions.move_to_element(elem).perform()
-                # print(elem.text)
-                print(elem.get_attribute('href'))
-                time.sleep(0.5)
-                visible = CG_Detail(self.driver, elem)
-                carDetails.append(visible)
-                print(visible)
-            except ElementClickInterceptedException as ex:
-                print("Dip and weave!")
-                print(ex.msg)
-                print("You have 30 seconds to figure out what's wrong")
-                time.sleep(30)
-                print("\tREFRESHING PAGE")
-                self.driver.refresh()
-                time.sleep(2)
+        # for i in range(len(links)):
+        #     print(f"(Car {i}) Checking: {self.names[i]}")
+        #     try:
+        #         elem = self.driver.find_elements(By.XPATH, linkPath)[4+i]
+        #         actions.move_to_element(elem).perform()
+        #         # print(elem.text)
+        #         print(elem.get_attribute('href'))
+        #         time.sleep(0.5)
+        #         visible = CG_Detail(self.driver, elem)
+        #         carDetails.append(visible)
+        #         print(visible)
+        #     except ElementClickInterceptedException as ex:
+        #         print("Dip and weave!")
+        #         print(ex.msg)
+        #         print("You have 30 seconds to figure out what's wrong")
+        #         time.sleep(30)
+        #         print("\tREFRESHING PAGE")
+        #         self.driver.refresh()
+        #         time.sleep(2)
         return links
 
     def findImages(self):

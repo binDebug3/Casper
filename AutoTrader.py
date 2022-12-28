@@ -1,5 +1,5 @@
-from main import brands, websites
-from Car import Car
+import main
+import Car
 import Search
 
 import time
@@ -46,7 +46,7 @@ class AutoTrader(object):
 
         # open link
         print("\n\nScanning AutoTrader")
-        self.website = websites["AutoTrader"]
+        self.website = main.websites["AutoTrader"]
         self.driver.get(self.website)
         time.sleep(5)
         print(self.website)
@@ -205,7 +205,7 @@ class AutoTrader(object):
         """
         # use list operator & to get all the words that match between
         # the set of brands and the words in the car's listing
-        match = list(set(brands.keys()) & set(nameList))
+        match = list(set(main.brands.keys()) & set(nameList))
         length = len(match)
 
         # if none found, return 'Not Recognized', otherwise rebuild the string and return the brand
@@ -356,7 +356,7 @@ class AutoTrader(object):
         df.Score = df.Score.astype(float)
         df.Price = df.Price.astype(float)
         df = df.sort_values(["Score", "Price"], ascending=False)
-        print(f"Exported {df.shape[0] - 1} cars to 'CarsDirect.csv'")
+        print(f"Exported {df.shape[0] - 1} cars to 'autotrader.csv'")
         df.to_csv('autotrader.csv', index=False, mode='w')
 
     def peruseCars(self, send=True):
@@ -366,7 +366,7 @@ class AutoTrader(object):
         # for each car on each page, build a Car object and set all of its attributes
         while self.resCount == 25:
             for i in range(self.resCount):
-                car = Car()
+                car = Car.Car()
                 car.setName(self.names[i + 2])
                 car.setPrice(self.prices[i + 1])
                 car.setMiles(self.miles[i])

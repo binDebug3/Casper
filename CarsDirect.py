@@ -244,22 +244,22 @@ class CarsDirect(object):
         linkElems = self.driver.find_elements(By.CLASS_NAME, linkPath)
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
-        for i in range(len(links)):
-            print(f"(Car {i}) Checking: {self.names[i]}")
-            try:
-                elem = self.driver.find_elements(By.CLASS_NAME, linkPath)[i]
-                actions.move_to_element(elem).perform()
-                print(elem.text)
-                print(elem.get_attribute('href'))
-                time.sleep(3)
-                carDetails.append(CD_Detail(self.driver, elem))
-            except ElementClickInterceptedException as ex:
-                print("Dip and weave!")
-                print(ex.msg)
-                time.sleep(30)
-                print("\tREFRESHING PAGE")
-                self.driver.refresh()
-                time.sleep(2)
+        # for i in range(len(links)):
+        #     print(f"(Car {i}) Checking: {self.names[i]}")
+        #     try:
+        #         elem = self.driver.find_elements(By.CLASS_NAME, linkPath)[i]
+        #         actions.move_to_element(elem).perform()
+        #         print(elem.text)
+        #         print(elem.get_attribute('href'))
+        #         time.sleep(3)
+        #         carDetails.append(CD_Detail(self.driver, elem))
+        #     except ElementClickInterceptedException as ex:
+        #         print("Dip and weave!")
+        #         print(ex.msg)
+        #         time.sleep(30)
+        #         print("\tREFRESHING PAGE")
+        #         self.driver.refresh()
+        #         time.sleep(2)
         return links, carDetails
 
     def findImages(self):
@@ -373,7 +373,7 @@ class CarsDirect(object):
                 car.setYear(self.findYear(car.nameList))
                 car.setSource("CarsDirect")
                 car.setScore()
-                car.setAddDetail(self.carDetails[i])
+                # car.setAddDetail(self.carDetails[i])
                 self.cars.append(car)
             # load the next page
             count = 1

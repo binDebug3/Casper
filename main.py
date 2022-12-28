@@ -36,7 +36,7 @@ brands = {"toyota": fav, "honda": fav, "chevrolet": med, "ford": fav, "mercedes-
           "mazda": bad, "tesla": fav, "kia": bad, "infiniti": med, "mitsubishi": bad,
           "mini": bad, "fiat": bad, "chrysler": bad, "buick": med, "lincoln": bad, "audi": bad,
           "ram": bad, "scion": med, "alfa": bad, "land": bad, "cadillac": bad, "smart": bad,
-          "volvo": bad, "hummer": bad, "gmc": bad}
+          "volvo": bad, "hummer": bad, "gmc": bad, "polaris": bad, "textron": bad, "harley": bad}
 # encode carsdirect parameters
 cdp = {"1050": "%600%600%6010%6014%60true%7C"}
 cdm = {"50000": "%601%600%600%609%60true%7C",
@@ -61,7 +61,7 @@ websites = {
                           p["zipCode"] + "&distance=" + p["radius"] + "&qString=Price" + cdp["1050"] + "Year" +
                           cdy["0023"] + "Mileage" + cdm["50000"] +
                           "&keywords=&pageNum=1&sortColumn=Default&sortDirection=ASC&makeName=&modelName="}
-selector = [1]
+selector = [3]
 
 
 if __name__ == "__main__":

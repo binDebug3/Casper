@@ -120,7 +120,7 @@ class KSL(object):
         mileElems = self.driver.find_elements(By.CLASS_NAME, mileClass)
         for elem in mileElems:
             stat = elem.text.replace(",", "").split()[0]
-            if int(stat) == 0:
+            if stat[0].isdigit() and int(stat) == 0:
                 stat = main.p["altMax"]
             miles.append(stat)
         return miles
@@ -209,14 +209,15 @@ class KSL(object):
                 # print("Holding for 5 seconds")
                 # time.sleep(5)
                 # action.release(debot)
-        for i in range(len(links)):
-            self.driver.close()
-            self.driver = webdriver.Chrome()
-            # self.driver = webdriver.Chrome()
-            print(links[i])
-            self.driver.get(links[i])
-            # wait for page to load
-            time.sleep(1)
+
+        # for i in range(len(links)):
+        #     self.driver.close()
+        #     self.driver = webdriver.Chrome()
+        #     # self.driver = webdriver.Chrome()
+        #     print(links[i])
+        #     self.driver.get(links[i])
+        #     # wait for page to load
+        #     time.sleep(1)
 
         return links
 
@@ -328,7 +329,7 @@ class KSL(object):
             car.setModel(self.findModel(car.nameList, car.brand))
             car.setYear(self.findYear(car.nameList))
             car.setSource("KSL")
-            car.setImage(self.images[i])
+            # car.setImage(self.images[i])
             car.setScore()
             self.cars.append(car)
         # export new Car list to CSV

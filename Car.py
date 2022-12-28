@@ -181,8 +181,10 @@ class Car(object):
         score += self.makeVal() * p["makeWeight"] / numParam
 
         # make good scores better and bad scores worse with nonlinear function
-        if 0 < self.score < 100:
+        if 0 < score < 1:
             self.score = score * (score + 0.4) * 100
+        else:
+            self.score = score * 100
         self.setHash()
         self.setDate()
 
@@ -203,7 +205,7 @@ class Car(object):
         :return:
         """
         if self.brand != "Not recognized":
-            return main.brands[self.brand]
+            return main.brands[self.brand.lower()]
         return 0.75
 
     def cap(self, title):

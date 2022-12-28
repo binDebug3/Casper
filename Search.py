@@ -1,4 +1,4 @@
-from Car import Car
+import Car
 
 import pandas as pd
 import math
@@ -181,7 +181,7 @@ class Search(metaclass=ABCMeta):
         count = 0
         while self.resCount == 30 or count == 0:
             for i in range(len(self.names)):
-                car = Car()
+                car = Car.Car()
                 car.setName(self.names[i])
                 car.setPrice(self.prices[i])
                 car.setMiles(self.miles[i])
