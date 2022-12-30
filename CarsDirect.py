@@ -239,27 +239,24 @@ class CarsDirect(object):
         links = []
         carDetails = []
         actions = ActionChains(self.driver)
-        linkPath = "detail-price"
+        # linkPath = "detail-price"
+        linkPath = "list-row"
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.CLASS_NAME, linkPath)
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
-        # for i in range(len(links)):
-        #     print(f"(Car {i}) Checking: {self.names[i]}")
-        #     try:
-        #         elem = self.driver.find_elements(By.CLASS_NAME, linkPath)[i]
-        #         actions.move_to_element(elem).perform()
-        #         print(elem.text)
-        #         print(elem.get_attribute('href'))
-        #         time.sleep(3)
-        #         carDetails.append(CD_Detail(self.driver, elem))
-        #     except ElementClickInterceptedException as ex:
-        #         print("Dip and weave!")
-        #         print(ex.msg)
-        #         time.sleep(30)
-        #         print("\tREFRESHING PAGE")
-        #         self.driver.refresh()
-        #         time.sleep(2)
+        for i in range(len(links)):
+        # for i in range(1):
+            try:
+                time.sleep(1)
+                elem = self.driver.find_elements(By.CLASS_NAME, linkPath)[i]
+                actions.move_to_element(elem).perform()
+                # print(elem.text)
+                carDetails.append(CD_Detail(self.driver, elem))
+            except ElementClickInterceptedException as ex:
+                print(f"Error searching car {i} - {self.names[i]}")
+                print(ex.msg)
+                carDetails.append(CD_Detail(None, None))
         return links, carDetails
 
     def findImages(self):
@@ -334,6 +331,7 @@ class CarsDirect(object):
 
         # use Car's toDict method to build a new dataframe, save it, then call the export method
         df = pd.DataFrame([car.toDict() for car in garage])
+        df.to_csv("Detailed_CarsDirect.csv", mode='w')
         df.to_csv('CarsDirect.csv', mode='a', index=False)
         print(f"Found {df.shape[0]} new cars.")
         self.exportCSV()
@@ -373,7 +371,7 @@ class CarsDirect(object):
                 car.setYear(self.findYear(car.nameList))
                 car.setSource("CarsDirect")
                 car.setScore()
-                # car.setAddDetail(self.carDetails[i])
+                car.setAddDetail(self.carDetails[i])
                 self.cars.append(car)
             # load the next page
             count = 1

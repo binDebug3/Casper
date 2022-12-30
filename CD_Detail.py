@@ -2,23 +2,38 @@ from selenium.webdriver.common.by import By
 
 class CD_Detail(object):
     def __init__(self, driver, link):
-        self.driver = driver
-        link.click()
-        self.trim = ""
-        self.exterior = ""
-        self.interior = ""
-        self.transmission = ""
-        self.engine = ""
-        self.certified = ""
-        self.doors = ""
-        self.vin = ""
-        self.stock_id = ""
-        self.link = link
-        self.comments = self.findComments()
-        self.features = self.findFeatures()
+        if driver is None:
+            self.driver = "None"
+            self.link = "None"
+            self.trim = "None"
+            self.exterior = "None"
+            self.interior = "None"
+            self.transmission = "None"
+            self.engine = "None"
+            self.certified = "None"
+            self.doors = "None"
+            self.vin = "None"
+            self.stock_id = "None"
+            self.comments = "None"
+            self.features = "None"
+        else:
+            self.driver = driver
+            self.link = str(link.get_attribute('href'))
+            link.click()
+            self.trim = ""
+            self.exterior = ""
+            self.interior = ""
+            self.transmission = ""
+            self.engine = ""
+            self.certified = ""
+            self.doors = ""
+            self.vin = ""
+            self.stock_id = ""
+            self.comments = self.findComments()
+            self.features = self.findFeatures()
 
-        self.findAttributes()
-        self.driver.back()
+            self.findAttributes()
+            self.driver.back()
 
     def findAttributes(self):
         attPath = "//div[@class='top']/div/dl/dd"
@@ -39,7 +54,7 @@ class CD_Detail(object):
 
     def findFeatures(self):
         features = []
-        featurePath = "//div[@class='feature-area']/ul/li"
+        featurePath = "//div[@class='feature-area']/ul/li/span"
         featureElems = self.driver.find_elements(By.XPATH, featurePath)
         for elem in featureElems:
             features.append(elem.text)
@@ -51,8 +66,7 @@ class CD_Detail(object):
         Convert Detail object to string
         :return: (string) Formatted string to display car data
         """
-        output = str(self.link.get_attribute('href'))
-        output += "\nExterior Color: " + self.exterior
+        output = "\nExterior Color: " + self.exterior
         output += "\nInterior Color: " + self.interior
         output += "\nTransmission: " + self.transmission
         output += "\nTrim: " + self.trim
@@ -62,6 +76,8 @@ class CD_Detail(object):
         output += "\nDoors: " + self.doors
         output += "\nVin: " + self.vin
         output += "\nStock ID: " + self.stock_id
+        output += "\nFeatures: " + str(self.features)
+        output += "\nComments: " + self.comments
         return output
 
     # CONVERT TO DICTIONARY FOR CSV
@@ -71,7 +87,7 @@ class CD_Detail(object):
         :return: (dict) where keys are key details about the car and values are their values as strings
         """
         return {
-            "Link": str(self.link.get_attribute('href')),
+            "Link": self.link,
             "Exterior Color": self.exterior,
             "Interior Color": self.interior,
             "Transmission": self.transmission,
@@ -81,4 +97,6 @@ class CD_Detail(object):
             "Doors": self.doors,
             "Vin": self.vin,
             "Stock ID": self.stock_id,
+            "Features": str(self.features),
+            "Comments": self.comments,
         }

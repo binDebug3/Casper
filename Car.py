@@ -154,7 +154,7 @@ class Car(object):
         """
         self.image = imagePath
     def setAddDetail(self, details):
-        self.addDetails = details
+        self.addDetails = details.toDict()
 
     # ASSIGN SCORE OUT OF 100
     def setScore(self):
@@ -238,6 +238,10 @@ class Car(object):
         output += "\nImage Path: " + str(self.image)
         output += "\nMake: " + str(self.brand).capitalize()
         output += "\nModel: " + str(self.model).capitalize()
+
+        adVals = self.addDetails.items()
+        for val in adVals:
+            output += "\n" + val[0] + ": " + str(val[1])
         return output
 
     # CONVERT TO DICTIONARY FOR CSV
@@ -246,7 +250,8 @@ class Car(object):
         Convert Car object to dict
         :return: (dict) where keys are key details about the car and values are their values as strings
         """
-        return {
+        adVals = self.addDetails.items()
+        vals = {
             "Make": self.brand.capitalize(),
             "Model": " ".join([word.capitalize() for word in self.model.split()]),
             "Score": self.score,
@@ -259,3 +264,6 @@ class Car(object):
             "Image": self.image,
             "Hash": self.id,
         }
+        for newVal in adVals:
+            vals.update({newVal[0]: newVal[1]})
+        return vals

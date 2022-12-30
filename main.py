@@ -31,11 +31,11 @@ fav = 1
 med = 0.5
 bad = 0
 brands = {"toyota": fav, "honda": fav, "chevrolet": med, "ford": fav, "mercedes-benz": bad,
-          "jeep": med, "bmw": bad, "porsche": bad, "subaru": med, "nissan": med,
+          "jeep": bad, "bmw": bad, "porsche": bad, "subaru": med, "nissan": med,
           "volkswagen": med, "lexus": med, "acura": med, "dodge": bad, "hyundai": med,
-          "mazda": bad, "tesla": fav, "kia": bad, "infiniti": med, "mitsubishi": bad,
-          "mini": bad, "fiat": bad, "chrysler": bad, "buick": med, "lincoln": bad, "audi": bad,
-          "ram": bad, "scion": med, "alfa": bad, "land": bad, "cadillac": bad, "smart": bad,
+          "mazda": med, "tesla": fav, "kia": bad, "infiniti": med, "mitsubishi": bad,
+          "mini": bad, "fiat": bad, "chrysler": bad, "buick": bad, "lincoln": bad, "audi": bad,
+          "ram": bad, "scion": bad, "alfa": bad, "land": bad, "cadillac": bad, "smart": bad,
           "volvo": bad, "hummer": bad, "gmc": bad, "polaris": bad, "textron": bad, "harley": bad}
 # encode carsdirect parameters
 cdp = {"1050": "%600%600%6010%6014%60true%7C"}
@@ -61,7 +61,7 @@ websites = {
                           p["zipCode"] + "&distance=" + p["radius"] + "&qString=Price" + cdp["1050"] + "Year" +
                           cdy["0023"] + "Mileage" + cdm["50000"] +
                           "&keywords=&pageNum=1&sortColumn=Default&sortDirection=ASC&makeName=&modelName="}
-selector = [3]
+selector = [2]
 
 
 if __name__ == "__main__":
@@ -79,6 +79,7 @@ if __name__ == "__main__":
     if 3 in selector:
         CarsDirect.CarsDirect().peruseCars()
         csv = 'start "excel.exe" "CarsDirect.csv"'
+        csv = 'start "excel.exe" "Detailed_CarsDirect.csv"'
 
     # send a notification to the computer
     if len(selector) == 1:
@@ -108,5 +109,5 @@ if __name__ == "__main__":
 
 # small things
 # TODO scrape lowbook
-# TODO details on carguru
-# TODO details on carsdirect
+# TODO scrape carvana
+# TODO scrape carmax
