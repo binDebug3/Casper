@@ -50,8 +50,8 @@ class CarGuru(object):
         self.names = self.findNames()
         self.prices = self.findPrices()
         self.miles = self.findMiles()
-        self.links = self.findLinks()
         self.images = self.findImages()
+        self.links, self.carDetails = self.findLinks()
         # page number not currently necessary and not functional for this site
         # self.pages, self.pageElems = self.getPages()
         self.export = True
@@ -233,26 +233,21 @@ class CarGuru(object):
         linkElems = self.driver.find_elements(By.XPATH, linkPath)[4:]
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
-        # for i in range(len(links)):
-        #     print(f"(Car {i}) Checking: {self.names[i]}")
-        #     try:
-        #         elem = self.driver.find_elements(By.XPATH, linkPath)[4+i]
-        #         actions.move_to_element(elem).perform()
-        #         # print(elem.text)
-        #         print(elem.get_attribute('href'))
-        #         time.sleep(0.5)
-        #         visible = CG_Detail(self.driver, elem)
-        #         carDetails.append(visible)
-        #         print(visible)
-        #     except ElementClickInterceptedException as ex:
-        #         print("Dip and weave!")
-        #         print(ex.msg)
-        #         print("You have 30 seconds to figure out what's wrong")
-        #         time.sleep(30)
-        #         print("\tREFRESHING PAGE")
-        #         self.driver.refresh()
-        #         time.sleep(2)
-        return links
+        for i in range(len(links)):
+            print(f"(Car {i}) Checking: {self.names[i]}")
+            try:
+                elem = self.driver.find_elements(By.XPATH, linkPath)[4+i]
+                actions.move_to_element(elem).perform()
+                time.sleep(0.5)
+                print(elem.get_attribute("href"))
+                visible = CG_Detail(self.driver, elem)
+                carDetails.append(visible)
+                print(visible)
+            except ElementClickInterceptedException as ex:
+                print(f"Error searching car {i} - {self.names[i]}")
+                print(ex.msg)
+                carDetails.append(CG_Detail(None, None))
+        return links, carDetails
 
     def findImages(self):
         """
@@ -262,8 +257,8 @@ class CarGuru(object):
         """
         # get a list of image elements
         images = []
-        imageClass = "C6f2e2 bmTmAy"
-        imageElems = self.driver.find_elements(By.XPATH, "//img[@class='C6f2e2 bmTmAy']")
+        imagePath = "//img[@class='C6f2e2 bmTmAy']"
+        imageElems = self.driver.find_elements(By.XPATH, imagePath)
         for elem in imageElems:
             # get the link to the element
             src = elem.get_attribute('src')
@@ -354,25 +349,26 @@ class CarGuru(object):
             print("I will not update the CSV file on this round.")
             self.export = False
         # for each car on each page, build a Car object and set all of its attributes
-        while self.resCount == 15:
-            time.sleep(1)
-            for i in range(len(self.names)):
-                car = Car.Car()
-                car.setName(self.names[i])
-                car.setPrice(self.prices[i])
-                car.setMiles(self.miles[i])
-                car.setLink(self.links[i])
-                car.setBrand(self.findBrand(car.nameList))
-                car.setModel(self.findModel(car.nameList, car.brand))
-                car.setYear(self.findYear(car.nameList))
-                car.setSource("CarGuru")
-                car.setImage(self.images[i])
-                car.setScore()
-                self.cars.append(car)
-            # load the next page
-            self.getNextPage()
-            time.sleep(2)
-            self.resetPage()
+        # while self.resCount == 15:
+        #     time.sleep(0.5)
+        for i in range(len(self.names)):
+            car = Car.Car()
+            car.setName(self.names[i])
+            car.setPrice(self.prices[i])
+            car.setMiles(self.miles[i])
+            car.setLink(self.links[i])
+            car.setBrand(self.findBrand(car.nameList))
+            car.setModel(self.findModel(car.nameList, car.brand))
+            car.setYear(self.findYear(car.nameList))
+            car.setSource("CarGuru")
+            car.setImage(self.images[i])
+            car.setScore()
+            car.setAddDetail(self.carDetails[i])
+            self.cars.append(car)
+        # load the next page
+        # self.getNextPage()
+        # time.sleep(1)
+        # self.resetPage()
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
             self.toCSV(sorted(self.cars, key=lambda x: x.score)[::-1])
