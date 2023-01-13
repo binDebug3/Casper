@@ -371,7 +371,7 @@ class CarsDirect(object):
                 car.setYear(self.findYear(car.nameList))
                 car.setSource("CarsDirect")
                 car.setScore()
-                car.setAddDetail(self.carDetails[i])
+                # car.setAddDetail(self.carDetails[i])
                 self.cars.append(car)
             # load the next page
             count = 1

@@ -1,11 +1,12 @@
 import time
 import math
+from urllib.error import URLError
+
 import pandas as pd
 
 import Car
 import main
 import Compresser
-import Search
 
 import urllib
 from selenium import webdriver
@@ -266,12 +267,17 @@ class CarGuru(object):
             alt = "_".join(elem.get_attribute('alt').split())
             path = "Images/" + alt + ".png"
             # save the image
-            urllib.request.urlretrieve(src, path)
+            try:
+                urllib.request.urlretrieve(src, path)
+            except URLError as ex:
+                print("Error retrieving image")
+                print(path)
+                print(ex)
             # compress with image with our custom compression algorithm woot woot
             try:
                 Compresser.compress_image(path, 50)
                 images.append(alt)
-            except ValueError as error:
+            except (FileNotFoundError, ValueError, IndexError) as error:
                 print("Image '" + alt + ".png' did not download properly")
                 print("More Details:")
                 print(src)
@@ -349,26 +355,26 @@ class CarGuru(object):
             print("I will not update the CSV file on this round.")
             self.export = False
         # for each car on each page, build a Car object and set all of its attributes
-        # while self.resCount == 15:
-        #     time.sleep(0.5)
-        for i in range(len(self.names)):
-            car = Car.Car()
-            car.setName(self.names[i])
-            car.setPrice(self.prices[i])
-            car.setMiles(self.miles[i])
-            car.setLink(self.links[i])
-            car.setBrand(self.findBrand(car.nameList))
-            car.setModel(self.findModel(car.nameList, car.brand))
-            car.setYear(self.findYear(car.nameList))
-            car.setSource("CarGuru")
-            car.setImage(self.images[i])
-            car.setScore()
-            car.setAddDetail(self.carDetails[i])
-            self.cars.append(car)
+        while self.resCount == 15 and len(self.cars) < 200:
+            time.sleep(0.5)
+            for i in range(len(self.names)):
+                car = Car.Car()
+                car.setName(self.names[i])
+                car.setPrice(self.prices[i])
+                car.setMiles(self.miles[i])
+                car.setLink(self.links[i])
+                car.setBrand(self.findBrand(car.nameList))
+                car.setModel(self.findModel(car.nameList, car.brand))
+                car.setYear(self.findYear(car.nameList))
+                car.setSource("CarGuru")
+                car.setImage(self.images[i])
+                car.setScore()
+                # car.setAddDetail(self.carDetails[i])
+                self.cars.append(car)
         # load the next page
-        # self.getNextPage()
-        # time.sleep(1)
-        # self.resetPage()
+        self.getNextPage()
+        time.sleep(1)
+        self.resetPage()
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
             self.toCSV(sorted(self.cars, key=lambda x: x.score)[::-1])

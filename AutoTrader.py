@@ -282,12 +282,17 @@ class AutoTrader(object):
             alt = "_".join(elem.get_attribute('alt').split())
             path = "Images/" + alt + ".png"
             # save the image
-            urllib.request.urlretrieve(src, path)
+            try:
+                urllib.request.urlretrieve(src, path)
+            except FileNotFoundError as ex:
+                print("Error retrieving image")
+                print(path)
+                print(ex)
             # compress with image with our custom compression algorithm woot woot
             try:
                 Compresser.compress_image(path, 50)
                 images.append(alt)
-            except (FileNotFoundError, ValueError) as error:
+            except (FileNotFoundError, ValueError, IndexError) as error:
                 print("Image '" + alt + "' did not load properly")
                 print("More Details:")
                 print(src)

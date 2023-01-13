@@ -250,7 +250,6 @@ class Car(object):
         Convert Car object to dict
         :return: (dict) where keys are key details about the car and values are their values as strings
         """
-        adVals = self.addDetails.items()
         vals = {
             "Make": self.brand.capitalize(),
             "Model": " ".join([word.capitalize() for word in self.model.split()]),
@@ -264,6 +263,8 @@ class Car(object):
             "Image": self.image,
             "Hash": self.id,
         }
-        for newVal in adVals:
-            vals.update({newVal[0]: newVal[1]})
+        if self.source in ["a"]:
+            adVals = self.addDetails.items()
+            for newVal in adVals:
+                vals.update({newVal[0]: newVal[1]})
         return vals
