@@ -1,8 +1,8 @@
 import time
 
-# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.common import NoSuchElementException, ElementClickInterceptedException
+import Search
 
 
 class CG_Detail(object):
@@ -46,6 +46,7 @@ class CG_Detail(object):
         self.markDown = self.findMarkDown()
         self.deal = self.findDeal()
         self.comments = self.findDescriptions()
+        self.damaged = Search.checkDamage(self.comments)
         self.safety, self.options = self.findSafetyOptions()
 
         # self.findAttributes()
@@ -122,9 +123,7 @@ class CG_Detail(object):
                 features.update({featureNames[i].text.lower(): featureElems[i].text.lower()})
             section.click()
             print(f"Found {len(features)} after searching {count} sections in findOverview")
-        print("findOverview found:")
-        print(f"{len(features)} elements found")
-        print(features)
+
         # updateBasic = False
         for param in features.keys():
             val = features.get(param)
@@ -170,12 +169,6 @@ class CG_Detail(object):
                 self.bLeg = val
             elif "cargo" in param:
                 self.cargo = val
-            # elif updateBasic and "make" in param:
-            #     self.make = val
-            # elif updateBasic and "model" in param:
-            #     self.model = val
-            # elif updateBasic and "condition" in param:
-            #     self.year = val
 
         return features
 

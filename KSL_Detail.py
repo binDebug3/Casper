@@ -5,8 +5,9 @@ class KSL_Detail(object):
         self.link = link.get_attribute('href')
         self.driver = driver
         link.click()
-        self.date = ""
-        self.city = ""
+        self.year = ""
+        self.make = ""
+        self.model = ""
         self.trim = ""
         self.body = ""
         self.cab_type = ""
@@ -22,6 +23,7 @@ class KSL_Detail(object):
         self.fuel_type = ""
         self.doors = ""
         self.belts = ""
+        self.mileage = ""
         self.vin = ""
         self.title = ""
         self.exterior = ""
@@ -67,17 +69,29 @@ class KSL_Detail(object):
         Convert Detail object to string
         :return: (string) Formatted string to display car data
         """
-        output = str(self.link.get_attribute('href'))
-        output += "\nExterior Color: " + self.exterior
-        output += "\nInterior Color: " + self.interior
-        output += "\nTransmission: " + self.transmission
-        output += "\nTrim: " + self.trim
-        output += "\nLink: " + str(self.link)
-        output += "\nEngine: " + self.engine
-        output += "\nCertified Pre-Owned: " + self.certified
-        output += "\nDoors: " + self.doors
-        output += "\nVin: " + self.vin
-        output += "\nStock ID: " + self.stock_id
+        output = str(self.link.get_attribute('href')) + \
+            "\nYear: " + self.year + \
+            "\nMake: " + self.make + \
+            "\nModel: " + self.model + \
+            "\nTrim: " + self.trim + \
+            "\nBody: " + self.body + \
+            "\nCabin Type: " + self.cab_type + \
+            "\nTruck Bed: " + self.bed + \
+            "\nExterior Condition: " + self.e_condition + \
+            "\nInterior Condition: " + self.i_condition + \
+            "\nDrive Type: " + self.drive_type + \
+            "\nDealer Licence: " + self.dealer_licence + \
+            "\nStock Number: " + self.stock_id + \
+            "\nLiters: " + self.liters + \
+            "\nCylinders: " + self.cylinders + \
+            "\nFuel Type: " + self.fuel_type + \
+            "\nDoors: " + self.doors + \
+            "\nBelts: " + self.belts + \
+            "\nMileage: " + self.mileage + \
+            "\nVin: " + self.vin + \
+            "\nTitle type: " + self.title + \
+            "\nExterior Color: " + self.exterior + \
+            "\nInterior Color: " + self.interior
         return output
 
     # CONVERT TO DICTIONARY FOR CSV
@@ -86,15 +100,25 @@ class KSL_Detail(object):
         Convert Detail object to dict
         :return: (dict) where keys are key details about the car and values are their values as strings
         """
+        # missing year, make, model, and mileage because they are redundant
         return {
             "Link": str(self.link.get_attribute('href')),
-            "Exterior Color": self.exterior,
-            "Interior Color": self.interior,
-            "Transmission": self.transmission,
             "Trim": self.trim,
-            "Engine": self.engine,
-            "Certified Pre-Owned": self.certified,
+            "Body": self.body,
+            "Cabin Type": self.cab_type,
+            "Truck Bed": self.bed,
+            "Exterior Condition": self.e_condition,
+            "Interior Condition": self.i_condition,
+            "Drive Type": self.drive_type,
+            "Dealer Licence": self.dealer_licence,
+            "Stock Number": self.stock_id,
+            "Liters": self.liters,
+            "Cylinders": self.cylinders,
+            "Fuel Type": self.fuel_type,
             "Doors": self.doors,
+            "Belts": self.belts,
             "Vin": self.vin,
-            "Stock ID": self.stock_id,
+            "Title type": self.title,
+            "Exterior Color": self.exterior,
+            "Interior Color": self.interior
         }

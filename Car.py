@@ -4,7 +4,7 @@ from datetime import date
 from plyer import notification
 
 class Car(object):
-    def __init__(self):
+    def __init__(self, detailed=True):
         """
         Initialize a Car object. It's really just a dictionary because the only things it actually contributes are
             the score and hash functions
@@ -25,12 +25,15 @@ class Car(object):
             score: (int) the score of the car based on how well it matches your parameters
             link: (string) the link to the car's information
             image: (string) the path to the saved image of the car
+            damaged: (boolean) True if damaged, False otherwise
         """
         self.brand = ""
         self.model = ""
         self.price = 0
         self.miles = 0
         self.year = 0
+        self.onMarket = "True"
+        self.daysOnMarket = 1
 
         self.name = ""
         self.nameList = ""
@@ -44,6 +47,9 @@ class Car(object):
         self.score = 0
         self.link = ""
         self.image = ""
+        self.damaged = False
+
+        self.detailed = detailed
         self.addDetails = ""
 
     # SETTERS
@@ -53,6 +59,8 @@ class Car(object):
         :param brand: (string) the brand of the car
         :return:
         """
+        if type(brand) is not str:
+            raise TypeError(f"Brand of the car must be a string. Instead received {type(brand)} - {brand}")
         self.brand = brand
     def setModel(self, model):
         """
@@ -60,6 +68,8 @@ class Car(object):
         :param model: (string) the model of the car
         :return:
         """
+        if type(model) is not str:
+            raise TypeError(f"Model of the car must be a string. Instead received {type(model)} - {model}")
         self.model = model
     def setPrice(self, price):
         """
@@ -67,6 +77,8 @@ class Car(object):
         :param price: (string) the price of the car
         :return:
         """
+        if type(price) is not str:
+            raise TypeError(f"Price of the car must be a string. Instead received {type(price)} - {price}")
         self.price = price
     def setMiles(self, miles):
         """
@@ -74,6 +86,8 @@ class Car(object):
         :param miles: (string) the mileage of the car
         :return:
         """
+        if type(miles) is not str:
+            raise TypeError(f"Mileage of the car must be a string. Instead received {type(miles)} - {miles}")
         self.miles = miles
     def setYear(self, year):
         """
@@ -81,6 +95,8 @@ class Car(object):
         :param year: (string) the year of the car
         :return:
         """
+        if type(year) is not int:
+            raise TypeError(f"Year of the car must be an int. Instead received {type(year)} - {year}")
         self.year = year
     def setName(self, name):
         """
@@ -88,6 +104,8 @@ class Car(object):
         :param name: (string) the name of the car
         :return:
         """
+        if type(name) is not str:
+            raise TypeError(f"Name of the car must be a string. Instead received {type(name)} - {name}")
         self.name = name
         self.setNameList(name)
     def setNameList(self, name):
@@ -96,7 +114,20 @@ class Car(object):
         :param name: (string) the name of the car
         :return:
         """
+        if type(name) is not str:
+            raise TypeError(f"List of names must be a string. Instead recieved {type(name)} - {name}")
         self.nameList = name.lower().split()
+    def setOnMarket(self, update="True"):
+        if update == "False":
+            self.onMarket = update
+        else:
+            self.onMarket = "True"
+    def setDaysOnMarket(self, update=1):
+        if type(update) is not int:
+            raise TypeError(f"Number of days on market must be an integer. Instead received {type(update)} - {update}")
+        if update < 1:
+            raise ValueError(f"Number of days on market must be positive. Instead received {update} - {update}")
+        self.daysOnMarket = update
     def setPhone(self, phone):
         # UNUSED
         """
@@ -123,6 +154,8 @@ class Car(object):
         :param source: (string) the source of the car
         :return:
         """
+        if type(source) is not str:
+            raise TypeError(f"Source of the car must be a string. Instead received {type(source)} - {source}")
         self.source = source
     def setRating(self, rating):
         # UNUSED
@@ -131,6 +164,8 @@ class Car(object):
         :param rating: (string) the rating of the car
         :return:
         """
+        if type(rating) is not str:
+            raise TypeError(f"Rating of the car must be a string. Instead received {type(rating)} - {rating}")
         self.rating = rating
     def setDistance(self, distance):
         """
@@ -138,6 +173,9 @@ class Car(object):
         :param distance: (string) the distance of the car's sale from input zipcode
         :return:
         """
+        if type(distance) is not str:
+            raise TypeError(f"Distance for the car must be a string. Instead received {type(distance)} - {distance}")
+
         self.distance = distance
     def setLink(self, link):
         """
@@ -145,6 +183,8 @@ class Car(object):
         :param link: (string) the link to the listing of the car
         :return:
         """
+        if type(link) is not str:
+            raise TypeError(f"Link for the car must be a string. Instead received {type(link)} - {link}")
         self.link = link
     def setImage(self, imagePath):
         """
@@ -152,6 +192,8 @@ class Car(object):
         :param imagePath: (string) the file folder path to the saved image of the car
         :return:
         """
+        if type(imagePath) is not str:
+            raise TypeError(f"Path to image in files for the car must be a string. Instead received {type(imagePath)} - {imagePath}")
         self.image = imagePath
     def setAddDetail(self, details):
         self.addDetails = details.toDict()
@@ -238,10 +280,13 @@ class Car(object):
         output += "\nImage Path: " + str(self.image)
         output += "\nMake: " + str(self.brand).capitalize()
         output += "\nModel: " + str(self.model).capitalize()
+        output += "\nOnSale: " + str(self.onMarket)
+        output += "\nDays: " + str(self.daysOnMarket)
 
-        adVals = self.addDetails.items()
-        for val in adVals:
-            output += "\n" + val[0] + ": " + str(val[1])
+        if self.detailed:
+            adVals = self.addDetails.items()
+            for val in adVals:
+                output += "\n" + val[0] + ": " + str(val[1])
         return output
 
     # CONVERT TO DICTIONARY FOR CSV
@@ -259,11 +304,13 @@ class Car(object):
             "Mileage": self.miles,
             "Date": self.date,
             "Source": self.source,
+            "OnSale": self.onMarket,
+            "Days": self.daysOnMarket,
             "Link": self.link,
             "Image": self.image,
             "Hash": self.id,
         }
-        if self.source in ["a"]:
+        if self.detailed and self.source in ["a"]:
             adVals = self.addDetails.items()
             for newVal in adVals:
                 vals.update({newVal[0]: newVal[1]})

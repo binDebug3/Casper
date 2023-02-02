@@ -4,21 +4,21 @@ import Search
 import Car
 import main
 import Compresser
-from Casper.CG_Detail import CG_Detail
 
 import urllib
 from urllib.error import URLError
 from selenium import webdriver
-from selenium.webdriver import ActionChains
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.common import NoSuchElementException, ElementClickInterceptedException, StaleElementReferenceException
+from selenium.common import NoSuchElementException, ElementClickInterceptedException, StaleElementReferenceException, \
+    ElementNotInteractableException, InvalidSelectorException
 
 
-class CarGuru(object):
+class Carvana(object):
     def __init__(self, detailed=True):
         """
-        Initialize a CarGuru object. Opens the corresponding website and scrapes relevant data
+        Initialize a Carvana object. Opens the corresponding website and scrapes relevant data
             to build attribute lists.
         :param self
         Attributes:
@@ -36,8 +36,8 @@ class CarGuru(object):
         :return:
         """
         websites = main.websites
-        print("\n\nScanning CarGuru")
-        print(websites["CarGuru"])
+        print("\n\nScanning Carvana")
+        print(websites["Carvana"])
         # set chrome options arguments to configure chrome
         self.chrome_options = Options()
         # self.chrome_options.add_argument("--disable-gpu")
@@ -50,21 +50,22 @@ class CarGuru(object):
         self.chrome_options.add_argument("--disable-extensions")
         self.driver = webdriver.Chrome(options=self.chrome_options,
             executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
-        self.driver.get(websites["CarGuru"])
+        self.driver.get(websites["Carvana"])
         time.sleep(3)
 
-        self.setMileage()
+        self.setUpPage()
         self.cars = []
         self.detailed = detailed
         self.compression = 50
         count = 0
         try:
-            self.resCount = self.getCount()
-            self.names = self.findNames()
-            self.prices = self.findPrices()
-            self.miles = self.findMiles()
-            self.images = self.findImages()
-            self.links, self.carDetails = self.findLinks()
+            pass
+            # self.resCount = self.getCount()
+            # self.names = self.findNames()
+            # self.prices = self.findPrices()
+            # self.miles = self.findMiles()
+            # self.images = self.findImages()
+            # self.links, self.carDetails = self.findLinks()
         except StaleElementReferenceException as ex:
             time.sleep(2)
             count += 1
@@ -76,10 +77,40 @@ class CarGuru(object):
             self.miles = self.findMiles()
             self.images = self.findImages()
             self.links, self.carDetails = self.findLinks()
-        # page number not currently necessary and not functional for this site
-        # self.pages, self.pageElems = self.getPages()
         self.export = True
-        self.retailer = "CarGuru"
+        self.retailer = "Carvana"
+
+    def setUpPage(self):
+        buttonClass = "DropDownMenustyles__DropDownWrap-sc-15ybm7w-0"
+        priceInput = "//div[@class='DebouncedInput__InputWrapper-sc-10o1wzo-0 gzEdEZ']/input"
+        mileInput = "//div[@class='DebouncedInput__InputWrapper-sc-10o1wzo-0 hKrMAS']/input"
+        # PRICES
+        # click on prices button
+        priceButton = self.driver.find_elements(By.CLASS_NAME, buttonClass)[0]
+        priceButton.click()
+        # switch from financed to prices
+        self.driver.find_elements(By.CLASS_NAME, "SwitchLabel-g8jqll-2")[1].click()
+        # enter maximum price
+        enterPrice = self.driver.find_elements(By.XPATH, priceInput)[1]
+        enterPrice.send_keys(main.p["maxPrice"])
+        # enterPrice.send_keys(Keys.ENTER)
+        priceButton.click()
+
+        # MILEAGE
+        try:
+            b = self.driver.find_elements(By.CLASS_NAME, buttonClass)
+            c = b[3]
+            c.click()
+            print("Clicked!")
+            self.driver.find_elements(By.XPATH, mileInput)[3].send_keys(main.p["maxMiles"])
+            time.sleep(5)
+        except (IndexError, InvalidSelectorException, ElementClickInterceptedException) as ex:
+            print("Error")
+            print(ex.msg)
+            for a in b:
+                print(a.text)
+            a = input("Press enter to continue")
+
 
     def setExport(self, send):
         self.export = send
@@ -87,7 +118,7 @@ class CarGuru(object):
     def resetPage(self):
         """
         After website link has been updated and the driver has been closed, opens a new Chrome browser
-            to display the next page. Updates all the AutoTrader attributes with the new data.
+            to display the next page. Updates all the Carvana attributes with the new data.
             This is not my best coding style, but it works for now.
         :param self
         :return:
@@ -100,7 +131,8 @@ class CarGuru(object):
         self.images = self.findImages()
 
     def getNextPage(self):
-        nextClass = "jX_mq2"
+        # TODO Not implemented
+        nextClass = ""
         button = self.driver.find_elements(By.CLASS_NAME, nextClass)
         if len(button) <= 1:
             button[0].click()
@@ -108,12 +140,13 @@ class CarGuru(object):
             button[1].click()
 
     def getCount(self):
+        # TODO Not implemented
         """
         Find the number of search results on one page and update self.resCount with it
         :param self
         :return:
         """
-        resCountID = "eegHEr"
+        resCountID = ""
         try:
             results = self.driver.find_element(By.CLASS_NAME, resCountID).text.split()
             count = int(results[2]) - int(results[0]) + 1
@@ -123,58 +156,32 @@ class CarGuru(object):
             time.sleep(2)
             self.getCount()
 
-    def getPages(self):
-        # UNUSED
-        """
-        Count the number of total pages.
-        NOT currently functional or necessary
-        :param self
-        :return: numPages (int): number of pages to scrape for a particular search
-        :return: nextPageButton (list): list of button elements to click in order to switch pages
-        """
-        pages = []
-        pageClass = ""
-        pageElems = self.driver.find_elements(By.CLASS_NAME, pageClass)
-        for page in pageElems:
-            num = page.text
-            if num.isdigit():
-                pages.append(int(num))
-        return pages, pageElems
 
     def findPrices(self):
+        # TODO Not implemented
         """
         Find the prices for each car
         :param self
         :return: prices (list): list of price strings
         """
         prices = []
-        priceClass = "JzvPHo"
+        priceClass = ""
         # get a list of price elements and save the parsed text content
         priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)[4:]
         for elem in priceElems:
             prices.append(elem.text.replace(",", "").replace("$", "").split()[0])
         return prices
 
-    def setMileage(self):
-        sliderClass = "E9RuSU"
-        barClass = "P6sai1"
-        slideButton = self.driver.find_element(By.CLASS_NAME, sliderClass)
-        slider = self.driver.find_element(By.CLASS_NAME, barClass)
-        length = float(slider.size["width"])
-        totalPixels = 330000
-        offset = int(- (totalPixels - int(main.p["maxMiles"])) / totalPixels * length)
-        move = ActionChains(self.driver)
-        move.click_and_hold(slideButton).move_by_offset(offset, 0).release().perform()
-        time.sleep(1)
 
     def findMiles(self):
+        # TODO Not implemented
         """
         Find the mileage for each car
         :param self
         :return: miles (list): list of mileage strings
         """
         miles = []
-        mileClass = "//div/p/span[2]"
+        mileClass = ""
         # get a list of mileage elements and save the parsed text content
         mileElems = self.driver.find_elements(By.XPATH, mileClass)[::2][4:]
         for elem in mileElems:
@@ -183,6 +190,7 @@ class CarGuru(object):
         return miles
 
     def findNames(self):
+        # TODO Not implemented
         """
         Find the listing title for each car
             ex) 2017 Toyota Corolla
@@ -190,7 +198,7 @@ class CarGuru(object):
         :return: names (list): list of name strings
         """
         names = []
-        nameID = "vO42pn"
+        nameID = ""
         # get a list of name elements and save the text content
         nameElems = self.driver.find_elements(By.CLASS_NAME, nameID)[4:]
         for elem in nameElems:
@@ -198,6 +206,7 @@ class CarGuru(object):
         return names
 
     def findLinks(self):
+        # TODO Not implemented
         """
         Find the links to each car's specific information
         :param self
@@ -206,7 +215,7 @@ class CarGuru(object):
         links = []
         carDetails = []
         actions = ActionChains(self.driver)
-        linkPath = "//div[@class='MOfIEd XcutUU prRsnF']/a"
+        linkPath = ""
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.XPATH, linkPath)[4:]
         for elem in linkElems:
@@ -215,20 +224,13 @@ class CarGuru(object):
             for i in range(len(links)):
                 print(f"(Car {i}) Checking: {self.names[i]}")
                 try:
-                    elem = self.driver.find_elements(By.XPATH, linkPath)[4+i]
-                    actions.move_to_element(elem).perform()
-                    time.sleep(0.5)
-                    print(elem.get_attribute("href"))
-                    visible = CG_Detail(self.driver, elem)
-                    carDetails.append(visible)
-                    print(visible)
+                    continue
                 except ElementClickInterceptedException as ex:
-                    print(f"Error searching car {i} - {self.names[i]}")
-                    print(ex.msg)
-                    carDetails.append(CG_Detail(None, None))
+                    break
         return links, carDetails
 
     def findImages(self):
+        # TODO Not implemented
         """
         Find the images for each car
         :param self
@@ -236,7 +238,7 @@ class CarGuru(object):
         """
         # get a list of image elements
         images = []
-        imagePath = "//img[@class='C6f2e2 bmTmAy']"
+        imagePath = ""
         imageElems = self.driver.find_elements(By.XPATH, imagePath)
         for elem in imageElems:
             # get the link to the element
@@ -265,6 +267,7 @@ class CarGuru(object):
         return images
 
     def peruseCars(self, send=True):
+        # TODO Not implemented
         if not send:
             print("I will not update the CSV file on this round.")
             self.export = False

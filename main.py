@@ -2,6 +2,7 @@ import AutoTrader
 import KSL
 import CarGuru
 import CarsDirect
+import Carvana
 from plyer import notification
 from datetime import date
 import os
@@ -12,10 +13,10 @@ import os
 p = {
     "maxPrice": "15000",
     "minPrice": "8000",
-    "maxMiles": "45000",
+    "maxMiles": "55000",
     "altMax": "50000",
     "minYear": "2000",
-    "currentYear": 2022,
+    "currentYear": 2023,
     "radius": "50",
     "city": "provo",
     "state": "ut",
@@ -60,26 +61,35 @@ websites = {
             "CarsDirect": "https://www.carsdirect.com/used_cars/listings?dealerId=&sellerId=&active=&zipcode=" +
                           p["zipCode"] + "&distance=" + p["radius"] + "&qString=Price" + cdp["1050"] + "Year" +
                           cdy["0023"] + "Mileage" + cdm["50000"] +
-                          "&keywords=&pageNum=1&sortColumn=Default&sortDirection=ASC&makeName=&modelName="}
-selector = [3]
+                          "&keywords=&pageNum=1&sortColumn=Default&sortDirection=ASC&makeName=&modelName=",
+            "Lowbook": "https://www.lowbooksales.com/used-cars?_gmod%5B0%5D=Dfe_Modules_VehiclePrice_Module&_gmod%5B1%5D=" +
+                       "Dfe_Modules_CustomizePayment_Module&direction=desc&t=u&location[]=Lindon&" +
+                       "priceto=" + p["maxPrice"] + "&mileageto=" + p["maxMiles"] + "&sf=sf_location",
+            "Carvana": "https://www.carvana.com/cars",
+}
+detailed = False
+selector = [6]
 
 
 if __name__ == "__main__":
     # Casper scrapes websites and opens their Excel file based on the selector list
     csv = 'start "excel.exe" "autotrader.csv"'
 
-    if 0 in selector:
+    if any(i in selector for i in [0, 1]):
         AutoTrader.AutoTrader().peruseCars()
-    if 1 in selector:
-        KSL.KSL().peruseCars()
+    if any(i in selector for i in [0, 2]):
+        KSL.KSL(detailed=detailed).peruseCars()
         csv = 'start "excel.exe" "ksl.csv"'
-    if 2 in selector:
-        CarGuru.CarGuru().peruseCars()
+    if any(i in selector for i in [0, 3]):
+        CarGuru.CarGuru(detailed=detailed).peruseCars()
         csv = 'start "excel.exe" "CarGuru.csv"'
-    if 3 in selector:
-        CarsDirect.CarsDirect().peruseCars()
+    if any(i in selector for i in [0, 4]):
+        CarsDirect.CarsDirect(detailed=detailed).peruseCars()
         csv = 'start "excel.exe" "CarsDirect.csv"'
         csv = 'start "excel.exe" "Detailed_CarsDirect.csv"'
+    if any(i in selector for i in [0, 6]):
+        Carvana.Carvana(detailed=detailed)
+        # csv = 'start "excel.exe" "Carvana.csv"'
 
     # send a notification to the computer
     if len(selector) == 1:
@@ -98,11 +108,7 @@ if __name__ == "__main__":
 
 
 # list of things to do
-# TODO scrape more data from each page
 # TODO test functionality on wider parameters and different parameters
-# TODO build a database (mongo db? db lite?)
-# TODO build a server
-# TODO decide on how to scrape and save data
 
 # TODO NLP understand descriptions
 # TODO make image classifier for cool cars
@@ -110,4 +116,3 @@ if __name__ == "__main__":
 # small things
 # TODO scrape lowbook
 # TODO scrape carvana
-# TODO scrape carmax

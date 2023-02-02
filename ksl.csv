@@ -1,95 +1,119 @@
-Make,Model,Score,Price,Year,Mileage,Date,Source,Link,Image,Hash
-Toyota,Venza Limited,102.2713574,10950,2022,2601,12/22/2022,KSL,https://cars.ksl.com/listing/8290901,"Toyota_Venza_2022_in_West_Valley_City,_UT",31555332
-Not recognized,None,88.36646702,8500,2015,1345,12/22/2022,KSL,https://cars.ksl.com/listing/8146115,"Polaris_RZR_570_2015_in_Chubbuck,_ID",37942450
-Not recognized,None,85.16410639,11500,2018,1804,12/22/2022,KSL,https://cars.ksl.com/listing/7918189,"Textron_Off_Road_Stampede_2018_in_Ogden,_UT",50966608
-Honda,Accord Sport Se,85.12748402,12950,2021,8344,12/15/2022,KSL,https://cars.ksl.com/listing/8252745,"Honda_Accord_2021_in_West_Valley_City,_UT",84316120
-Honda,Accord Sport Se,85.12748402,12950,2021,8344,1/12/2023,KSL,https://cars.ksl.com/listing/8252745,,100827370
-Ford,Focus Se,80.19178365,10995,2018,11191,12/11/2022,KSL,https://cars.ksl.com/listing/8263805,https://img.ksl.com/mx/mplace-cars.ksl.com/3033386-1670106715-717148.jpg?filter=marketplace/400x300_dealer,97634432
-Toyota,Corolla Le,72.89986071,13995,2016,9217,1/12/2023,KSL,https://cars.ksl.com/listing/8186145,,121565232
-Toyota,Corolla Le,72.89986071,13995,2016,9217,12/15/2022,KSL,https://cars.ksl.com/listing/8186145,"Toyota_Corolla_2016_in_West_Jordan,_UT",111488832
-Jeep,Grand Cherokee Summit,69.03363259,12950,2014,1,12/22/2022,KSL,https://cars.ksl.com/listing/8223871,"Jeep_Grand_Cherokee_2014_in_West_Valley_City,_UT",8056
-Not recognized,None,68.98205511,14995,2012,547,12/15/2022,KSL,https://cars.ksl.com/listing/8159132,"HARLEY_DAVIDSON_Heritage_Softail_2012_in_Lehi,_UT",15407896
-Toyota,Corolla Le,64.8641802,13995,2011,9400,1/12/2023,KSL,https://cars.ksl.com/listing/8301270,,122377200
-Honda,Fit Sport,64.10664049,14999,2018,15568,12/15/2022,KSL,https://cars.ksl.com/listing/8283277,"Honda_Fit_2018_in_Cottonwood_Heights,_UT",157081120
-Hyundai,Accent Se,60.29337787,14999,2020,9000,12/22/2022,KSL,https://cars.ksl.com/listing/8259334,"Hyundai_Accent_2020_in_Murray,_UT",127260000
-Mitsubishi,Mirage Es,54.85245468,14995,2021,2680,1/12/2023,KSL,https://cars.ksl.com/listing/7882366,,61450370
-Ford,Focus Sel,53.94063717,13999,2018,24277,12/11/2022,KSL,https://cars.ksl.com/listing/8276224,https://cars.ksl.com/images/no-image-defaults/cars-noimage_hatchback-lrg.png?filter=marketplace/400x300_dealer,203019440
-Ford,Fiesta S,52.71404403,14899,2019,24861,12/11/2022,KSL,https://cars.ksl.com/listing/8190853,https://img.ksl.com/mx/mplace-cars.ksl.com/105985-1670446426-336990.jpg?filter=marketplace/400x300_dealer,207332996
-Ford,Fusion Titanium,52.33154468,12995,2016,24935,12/11/2022,KSL,https://cars.ksl.com/listing/8263287,https://img.ksl.com/mx/mplace-cars.ksl.com/3033386-1670084966-112628.jpg?filter=marketplace/400x300_dealer,211796715
-Ford,Fiesta Se,50.43464552,12971,2019,29473,12/11/2022,KSL,https://cars.ksl.com/listing/8223686,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1668064320-301187.jpg?filter=marketplace/400x300_dealer,244211115
-Ford,Fiesta Se,49.7363043,10900,2014,28000,12/11/2022,KSL,https://cars.ksl.com/listing/8216882,https://img.ksl.com/mx/mplace-cars.ksl.com/2610677-1667715451-566013.jpg?filter=marketplace/400x300_dealer,230669200
-Harley,Davidson Heritage Softail,46.54669942,14495,2012,547,1/12/2023,KSL,https://cars.ksl.com/listing/8159132,,23272634
-Hyundai,Elantra Se,45.07356294,13900,2018,20000,12/15/2022,KSL,https://cars.ksl.com/listing/8271236,"Hyundai_Elantra_2018_in_Bountiful,_UT",282520000
-Chevrolet,Aveo Aveo5 Lt,44.22811452,8900,2010,20000,12/22/2022,KSL,https://cars.ksl.com/listing/8258753,"Chevrolet_Aveo_2010_in_Bountiful,_UT",361800000
-Kia,Sportage Lx,43.44126008,13995,2019,10952,12/22/2022,KSL,https://cars.ksl.com/listing/8282998,"Kia_Sportage_2019_in_Lehi,_UT",66336264
-Nissan,Versa Note S Plus,43.23310282,11495,2016,23054,12/15/2022,KSL,https://cars.ksl.com/listing/8197964,"Nissan_Versa_Note_2016_in_South_Jordan,_UT",278861184
-Mitsubishi,Mirage Es,41.68924256,10995,2020,17919,1/12/2023,KSL,https://cars.ksl.com/listing/8316855,,366020955
-Toyota,Yaris Hatchback Le,40.96393345,14955,2020,35085,12/22/2022,KSL,https://cars.ksl.com/listing/8173063,"Toyota_Yaris_Hatchback_2020_in_Bountiful,_UT",425230200
-Ford,Fiesta Se,40.70394672,14500,2016,31895,1/12/2023,KSL,https://cars.ksl.com/listing/8230222,,262421280
-Hyundai,Elantra Gls,40.14150116,11995,2013,21809,12/22/2022,KSL,https://cars.ksl.com/listing/8162846,"Hyundai_Elantra_2013_in_Centerville,_UT",307310619
-Chevrolet,Sonic Ls,39.41585278,12471,2020,28871,12/11/2022,KSL,https://cars.ksl.com/listing/8124981,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1663481599-912674.jpg?filter=marketplace/400x300_dealer,528965268
-Nissan,Juke Sv,36.74374639,12741,2014,24647,12/15/2022,KSL,https://cars.ksl.com/listing/8210767,"Nissan_Juke_2014_in_Kaysville,_UT",297834348
-Nissan,Leaf,36.50435306,11995,2015,27000,1/12/2023,KSL,https://cars.ksl.com/listing/8328080,,328157280
-Nissan,Sentra S,36.28310114,12995,2018,28764,12/22/2022,KSL,https://cars.ksl.com/listing/8295131,"Nissan_Sentra_2018_in_Bountiful,_UT",348274512
-Subaru,Forester 2.5i Premium,35.98188741,12995,2016,26986,12/22/2022,KSL,https://cars.ksl.com/listing/8283001,"Subaru_Forester_2016_in_Lehi,_UT",326422656
-Ford,Focus Se,35.63580033,12249,2018,41709,12/11/2022,KSL,https://cars.ksl.com/listing/8276221,https://cars.ksl.com/images/no-image-defaults/cars-noimage_sedan-lrg.png?filter=marketplace/400x300_dealer,340300752
-Jeep,Compass Sport,34.84185287,13900,2016,26650,12/11/2022,KSL,https://cars.ksl.com/listing/7747369,https://img.ksl.com/mx/mplace-cars.ksl.com/4482885-1661463511-909703.jpg?filter=marketplace/400x300_dealer,221410800
-Honda,Fit Ex,32.74392524,14741,2017,39581,12/11/2022,KSL,https://cars.ksl.com/listing/8138792,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1664086383-337348.jpg?filter=marketplace/400x300_dealer,402181549
-Cadillac,Xt4 Premium Luxury,32.56598911,14950,2020,20001,1/12/2023,KSL,https://cars.ksl.com/listing/8304366,,331827360
-Ford,Fiesta,32.27124842,13000,2019,44678,12/11/2022,KSL,https://cars.ksl.com/listing/8276453,https://img.ksl.com/mx/mplace-cars.ksl.com/2046150-1670769272-236063.jpg?filter=marketplace/400x300_cropped,363471528
-Subaru,Impreza,31.69669006,14995,2020,31997,12/11/2022,KSL,https://cars.ksl.com/listing/8239356,https://img.ksl.com/mx/mplace-cars.ksl.com/3943527-1668810965-837866.jpg?filter=marketplace/400x300_dealer,391267485
-Chevrolet,Spark 1lt,31.24271585,13378,2021,35874,12/15/2022,KSL,https://cars.ksl.com/listing/8283263,"Chevrolet_Spark_2021_in_Salt_Lake_City,_UT",652512186
-Hyundai,Elantra Se,30.21895464,11900,2018,36000,12/11/2022,KSL,https://cars.ksl.com/listing/8275679,https://img.ksl.com/mx/mplace-cars.ksl.com/4351581-1670713505-83025.jpg?filter=marketplace/400x300_cropped,512344000
-Toyota,Camry Se,29.79216684,13995,2015,41451,12/15/2022,KSL,https://cars.ksl.com/listing/8263284,"Toyota_Camry_2015_in_Lehi,_UT",501142590
-Hyundai,Veloster Base,29.20101649,8995,2017,40321,12/15/2022,KSL,https://cars.ksl.com/listing/8265210,"Hyundai_Veloster_2017_in_Lindon,_UT",569292199
-Chevrolet,Spark Ls,28.33675325,12995,2018,36193,12/11/2022,KSL,https://cars.ksl.com/listing/8275831,https://img.ksl.com/mx/mplace-cars.ksl.com/23802-1670721240-459180.jpg?filter=marketplace/400x300_dealer,660456066
-Ford,Fusion Se,28.26786221,13371,2015,43879,12/11/2022,KSL,https://cars.ksl.com/listing/8252615,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1669533207-90973.jpg?filter=marketplace/400x300_dealer,357274910
-Chevrolet,Spark 1lt,28.14766292,14956,2021,36507,12/11/2022,KSL,https://cars.ksl.com/listing/8152310,https://img.ksl.com/mx/mplace-cars.ksl.com/1112925-1666762859-895861.jpg?filter=marketplace/400x300_dealer,667929339
-Fiat,500x Pop,28.12956763,14971,2019,23207,1/12/2023,KSL,https://cars.ksl.com/listing/8258732,,190773236
-Kia,Soul +,27.862353,13971,2018,23950,12/11/2022,KSL,https://cars.ksl.com/listing/8229678,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1668323551-132877.jpg?filter=marketplace/400x300_dealer,147424254
-Hyundai,Sonata Gls,27.4359797,9500,2010,34151,12/11/2022,KSL,https://cars.ksl.com/listing/8276115,https://img.ksl.com/mx/mplace-cars.ksl.com/1467918-1670751775-109736.jpg?filter=marketplace/400x300_dealer,483259570
-Chevrolet,Camaro Lt,26.06685582,14995,2015,32411,12/11/2022,KSL,https://cars.ksl.com/listing/7522459,https://img.ksl.com/mx/mplace-cars.ksl.com/486347-1635542252-281538.jpg?filter=marketplace/400x300_dealer,591417270
-Fiat,500e Base,26.01127286,14812,2017,23538,1/12/2023,KSL,https://cars.ksl.com/listing/8249040,,193370592
-Fiat,500e Base,26.01127286,14812,2017,23538,12/22/2022,KSL,https://cars.ksl.com/listing/8249040,"Fiat_500e_2017_in_South_Jordan,_UT",189904584
-Nissan,Rogue Sv,25.00890895,11999,2015,38000,12/11/2022,KSL,https://cars.ksl.com/listing/8227139,https://img.ksl.com/mx/mplace-cars.ksl.com/3022613-1668215299-217183.jpg?filter=marketplace/400x300_dealer,461915792
-Nissan,Versa S,24.9808433,13970,2018,38141,12/15/2022,KSL,https://cars.ksl.com/listing/8017489,"Nissan_Versa_2018_in_Idaho_Falls,_ID",461811228
-Chevrolet,Cruze,24.8291764,14711,2015,34120,12/11/2022,KSL,https://cars.ksl.com/listing/8252528,https://img.ksl.com/mx/mplace-cars.ksl.com/1467918-1669876699-567470.jpg?filter=marketplace/400x300_dealer,620678630
-Toyota,Corolla Le,24.71076188,12995,2012,45000,12/22/2022,KSL,https://cars.ksl.com/listing/8220757,"Toyota_Corolla_2012_in_Millcreek,_UT",543240000
-Volkswagen,Eos Executive Sulev,23.99418931,14999,2012,31501,12/22/2022,KSL,https://cars.ksl.com/listing/8282948,"Volkswagen_Eos_2012_in_Salt_Lake_City,_UT",633800120
-Chevrolet,Cruze Lt Auto,23.59993088,11871,2018,42750,1/12/2023,KSL,https://cars.ksl.com/listing/8253496,,779974929
-Nissan,Rogue Select S,23.40956123,11995,2015,39700,12/15/2022,KSL,https://cars.ksl.com/listing/8254158,"Nissan_Rogue_Select_2015_in_Orem,_UT",479973000
-Not recognized,None,21.65088937,13568,2020,50000,12/15/2022,KSL,https://cars.ksl.com/listing/8211199,"Polaris_Ranger_1000_2020_in_Rock_Springs,_WY",1414000000
-Chevrolet,Sonic Ls,21.27956511,13748,2016,40428,12/22/2022,KSL,https://cars.ksl.com/listing/8090742,"Chevrolet_Sonic_2016_in_Centerville,_UT",733525632
-Chevrolet,Trax Ls,21.00694998,13500,2019,44174,12/15/2022,KSL,https://cars.ksl.com/listing/8047148,"Chevrolet_Trax_2019_in_Las_Vegas,_NV",802685754
-Chevrolet,Trax Ls,21.00606097,13500,2019,44175,1/12/2023,KSL,https://cars.ksl.com/listing/8047148,,804688425
-Nissan,Versa Note Sr,20.83103394,14095,2018,42457,1/12/2023,KSL,https://cars.ksl.com/listing/8283049,,517734056
-Nissan,Sentra Sv,20.72749414,13995,2018,42724,1/12/2023,KSL,https://cars.ksl.com/listing/8258984,,519821292
-Nissan,Sentra Sv,20.72749414,13995,2018,42724,12/15/2022,KSL,https://cars.ksl.com/listing/8258984,"Nissan_Sentra_2018_in_Bountiful,_UT",517302192
-Not recognized,None,20.58757372,13000,2018,50000,12/15/2022,KSL,https://cars.ksl.com/listing/8211198,"Polaris_RZR_S_900_2018_in_Rock_Springs,_WY",1412600000
-Hyundai,Sonata Se,20.54952254,13900,2015,40000,12/15/2022,KSL,https://cars.ksl.com/listing/8271235,"Hyundai_Sonata_2015_in_Bountiful,_UT",564200000
-Hyundai,Sonata Se,20.54952254,13900,2015,40000,1/12/2023,KSL,https://cars.ksl.com/listing/8271235,,566702000
-Nissan,Versa Note Sr,20.43398796,14395,2018,42457,12/15/2022,KSL,https://cars.ksl.com/listing/8283049,"Nissan_Versa_Note_2018_in_Ogden,_UT",514069356
-Subaru,Forester 2.5i,20.34818374,14995,2017,40632,12/11/2022,KSL,https://cars.ksl.com/listing/7900671,https://img.ksl.com/mx/mplace-cars.ksl.com/468003-1653818496-844397.jpg?filter=marketplace/400x300_dealer,495822099
-Hyundai,Elantra Gt Base,18.00584112,12988,2014,43312,1/12/2023,KSL,https://cars.ksl.com/listing/8310912,,614119336
-Volkswagen,Beetle,17.26722722,14489,2013,40931,12/15/2022,KSL,https://cars.ksl.com/listing/8197337,"Volkswagen_Beetle_2013_in_Lehi,_UT",823941030
-Nissan,Altima 2.5 S,15.70958178,14998,2015,44149,1/12/2023,KSL,https://cars.ksl.com/listing/8270682,,536461050
-Ford,Freestar Limited,14.76363364,12588,2005,50000,1/12/2023,KSL,https://cars.ksl.com/listing/8328692,,403819712
-Kia,Soul +,14.67074421,14999,2017,36277,1/12/2023,KSL,https://cars.ksl.com/listing/8009240,,220772043
-Volkswagen,Beetle 2.5l,14.66236509,13999,2013,44947,12/15/2022,KSL,https://cars.ksl.com/listing/8193927,"Volkswagen_Beetle_2013_in_North_Salt_Lake,_UT",904783110
-Kia,Optima S,14.25119226,11499,2018,43099,12/11/2022,KSL,https://cars.ksl.com/listing/8276492,https://img.ksl.com/mx/mplace-cars.ksl.com/1873507-1670777561-708595.jpg?filter=marketplace/400x300_cropped,262301226
-Kia,Soul Ev +,13.87683815,14995,2016,36305,12/11/2022,KSL,https://cars.ksl.com/listing/8204155,https://img.ksl.com/mx/mplace-cars.ksl.com/626745-1667724516-873699.jpg?filter=marketplace/400x300_dealer,221462010
-Kia,Optima Lx,13.28237903,13995,2018,40648,12/15/2022,KSL,https://cars.ksl.com/listing/8047293,"Kia_Optima_2018_in_West_Jordan,_UT",246082992
-Kia,Optima Lx,13.28237903,13995,2018,40648,1/12/2023,KSL,https://cars.ksl.com/listing/8047293,,247720407
-Fiat,500e Base,13.26726521,10437,2016,43960,1/12/2023,KSL,https://cars.ksl.com/listing/8250401,,355714569
-Fiat,500 Pop,12.4458923,8350,2012,44125,12/15/2022,KSL,https://cars.ksl.com/listing/8236851,"Fiat_500_2012_in_Salt_Lake_City,_UT",355118000
-Dodge,Dart Gt,11.38845494,13300,2016,42282,1/12/2023,KSL,https://cars.ksl.com/listing/8186007,,427226660
-Gmc,Acadia Denali,11.12402245,14950,2019,43256,12/22/2022,KSL,https://cars.ksl.com/listing/8260857,"GMC_Acadia_2019_in_West_Valley_City,_UT",262001592
-Dodge,Dart Gt,11.07622997,13600,2016,42282,12/15/2022,KSL,https://cars.ksl.com/listing/8186007,"Dodge_Dart_2016_in_Las_Vegas,_NV",426202560
-Fiat,500e Base,10.71650794,14056,2017,43145,12/11/2022,KSL,https://cars.ksl.com/listing/8252554,https://img.ksl.com/mx/mplace-cars.ksl.com/513543-1670482218-312889.jpg?filter=marketplace/400x300_dealer,349485404
-Mini,Cooper Countryman Base,10.48914235,14995,2014,39003,12/11/2022,KSL,https://cars.ksl.com/listing/8229849,https://img.ksl.com/mx/mplace-cars.ksl.com/626745-1669458272-567147.jpg?filter=marketplace/400x300_dealer,317836958
-Polaris,Ranger 1000 Eps,8.70687725,13568,2020,50000,1/12/2023,KSL,https://cars.ksl.com/listing/8211199,,708628160
-Polaris,Rzr S 900 Eps,7.961816141,13000,2018,50000,1/12/2023,KSL,https://cars.ksl.com/listing/8211198,,707483000
-Gmc,2500 Work Truck,7.23685206,9795,2007,44755,12/15/2022,KSL,https://cars.ksl.com/listing/8050122,"GMC_2500_2007_in_Salt_Lake_City,_UT",269469855
-Mazda,Mx-5 Grand Touring,5.4083107,13910,2007,41787,12/15/2022,KSL,https://cars.ksl.com/listing/8283035,"Mazda_MX-5_2007_in_Salt_Lake_City,_UT",419332545
-Chrysler,200 Limited,5.321980895,13995,2015,50000,12/15/2022,KSL,https://cars.ksl.com/listing/7789271,"Chrysler_200_2015_in_Orem,_UT",806000000
-Mazda,Mx-5,3.575394381,13965,2006,44225,12/11/2022,KSL,https://cars.ksl.com/listing/8268750,https://img.ksl.com/mx/mplace-cars.ksl.com/893623-1670397277-979391.jpg?filter=marketplace/400x300_dealer,443744330
+Make,Model,Score,Price,Year,Mileage,Date,Source,OnSale,Days,Link,Image,Hash
+Ford,F-150 Xlt,82.1358735327252,9499.0,2007,1000,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8217275,,15038262
+Toyota,Yaris L,65.61390797224773,13971.0,2019,17111,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8346780,,213639459
+Toyota,Corolla S,44.36570247933884,14900.0,2016,28275,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8326849,,347914800
+Mitsubishi,Mirage Es,42.12945281777778,12741.0,2022,16980,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8130096,,348151698
+Toyota,Corolla Le,40.62277785938578,14471.0,2019,35075,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8337787,,430686950
+Chevrolet,Suburban Lt,34.04432368491379,9000.0,2007,25519,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8025182,,464315697
+Hyundai,Sonata Se,30.921605271641667,13995.0,2019,33208,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8282273,,473107314
+Hyundai,Sonata,29.289030132664017,11900.0,2012,30764,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8327079,,435350776
+Toyota,Corolla Le,28.86712685474544,11500.0,2007,37913,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8351639,,459768346
+Mazda,Mazda3 Touring,26.466831619630643,13700.0,2017,35990,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8324723,,367945950
+Nissan,Sentra S,24.52755422228752,13595.0,2018,39179,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8209940,,476989572
+Ford,Escape Se,23.91531888133864,14995.0,2019,50000,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8282272,,406903965
+Hyundai,Sonata Se,23.758976169843898,12900.0,2016,38991,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8326850,,552911292
+Subaru,Impreza 2.0i,23.18010829752066,13990.0,2017,39000,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8352053,,475839240
+Ford,Explorer Xlt,21.51621335816346,13999.0,2010,44901,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8130140,,364531788
+Volkswagen,Beetle 1.8t Se,20.74453476863177,13995.0,2017,41682,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8281994,,844644540
+Subaru,Crosstrek 2.0i Premium,17.8686035928742,14990.0,2017,43542,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8326704,,532551544
+Mini,Hardtop 2 Door Cooper,14.951827718494032,12995.0,2015,36873,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8310251,,301016910
+Kia,Optima Lx,14.859455629425566,10990.0,2015,40000,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8351557,,243184740
+Hyundai,Sonata Hybrid Se,13.169153091953884,13999.0,2016,50000,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8351600,,708511792
+Mini,Hardtop 2 Door,11.054838952694624,14032.0,2016,41665,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8234627,,338147488
+Kia,Forte Lx,11.001772135904499,14340.0,2016,41280,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8351905,,250923360
+Jeep,Renegade Sport,9.307992436510562,13689.0,2016,44790,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8273496,,362911374
+Gmc,Terrain Sle-1,8.414902768631773,14521.0,2016,44943,2023-01-25,KSL,True,1.0,https://cars.ksl.com/listing/8346776,,273325448
+Toyota,Venza Limited,102.2713574,10950.0,2022,2601,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8290901,"Toyota_Venza_2022_in_West_Valley_City,_UT",31555332
+Not recognized,None,88.36646702,8500.0,2015,1345,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8146115,"Polaris_RZR_570_2015_in_Chubbuck,_ID",37942450
+Not recognized,None,85.16410639,11500.0,2018,1804,12/22/2022,KSL,False,,https://cars.ksl.com/listing/7918189,"Textron_Off_Road_Stampede_2018_in_Ogden,_UT",50966608
+Honda,Accord Sport Se,85.12748402,12950.0,2021,8344,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8252745,,100827370
+Honda,Accord Sport Se,85.12748402,12950.0,2021,8344,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8252745,"Honda_Accord_2021_in_West_Valley_City,_UT",84316120
+Ford,Focus Se,80.19178365,10995.0,2018,11191,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8263805,https://img.ksl.com/mx/mplace-cars.ksl.com/3033386-1670106715-717148.jpg?filter=marketplace/400x300_dealer,97634432
+Toyota,Corolla Le,72.89986071,13995.0,2016,9217,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8186145,"Toyota_Corolla_2016_in_West_Jordan,_UT",111488832
+Toyota,Corolla Le,72.89986071,13995.0,2016,9217,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8186145,,121565232
+Jeep,Grand Cherokee Summit,69.03363259,12950.0,2014,1,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8223871,"Jeep_Grand_Cherokee_2014_in_West_Valley_City,_UT",8056
+Not recognized,None,68.98205511,14995.0,2012,547,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8159132,"HARLEY_DAVIDSON_Heritage_Softail_2012_in_Lehi,_UT",15407896
+Toyota,Corolla Le,64.8641802,13995.0,2011,9400,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8301270,,122377200
+Honda,Fit Sport,64.10664049,14999.0,2018,15568,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8283277,"Honda_Fit_2018_in_Cottonwood_Heights,_UT",157081120
+Hyundai,Accent Se,60.29337787,14999.0,2020,9000,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8259334,"Hyundai_Accent_2020_in_Murray,_UT",127260000
+Mitsubishi,Mirage Es,54.85245468,14995.0,2021,2680,1/12/2023,KSL,False,,https://cars.ksl.com/listing/7882366,,61450370
+Ford,Focus Sel,53.94063717,13999.0,2018,24277,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8276224,https://cars.ksl.com/images/no-image-defaults/cars-noimage_hatchback-lrg.png?filter=marketplace/400x300_dealer,203019440
+Ford,Fiesta S,52.71404403,14899.0,2019,24861,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8190853,https://img.ksl.com/mx/mplace-cars.ksl.com/105985-1670446426-336990.jpg?filter=marketplace/400x300_dealer,207332996
+Ford,Fusion Titanium,52.33154468,12995.0,2016,24935,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8263287,https://img.ksl.com/mx/mplace-cars.ksl.com/3033386-1670084966-112628.jpg?filter=marketplace/400x300_dealer,211796715
+Ford,Fiesta Se,50.43464552,12971.0,2019,29473,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8223686,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1668064320-301187.jpg?filter=marketplace/400x300_dealer,244211115
+Ford,Fiesta Se,49.7363043,10900.0,2014,28000,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8216882,https://img.ksl.com/mx/mplace-cars.ksl.com/2610677-1667715451-566013.jpg?filter=marketplace/400x300_dealer,230669200
+Harley,Davidson Heritage Softail,46.54669942,14495.0,2012,547,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8159132,,23272634
+Hyundai,Elantra Se,45.07356294,13900.0,2018,20000,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8271236,"Hyundai_Elantra_2018_in_Bountiful,_UT",282520000
+Chevrolet,Aveo Aveo5 Lt,44.22811452,8900.0,2010,20000,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8258753,"Chevrolet_Aveo_2010_in_Bountiful,_UT",361800000
+Kia,Sportage Lx,43.44126008,13995.0,2019,10952,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8282998,"Kia_Sportage_2019_in_Lehi,_UT",66336264
+Nissan,Versa Note S Plus,43.23310282,11495.0,2016,23054,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8197964,"Nissan_Versa_Note_2016_in_South_Jordan,_UT",278861184
+Mitsubishi,Mirage Es,41.68924256,10995.0,2020,17919,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8316855,,366020955
+Toyota,Yaris Hatchback Le,40.96393345,14955.0,2020,35085,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8173063,"Toyota_Yaris_Hatchback_2020_in_Bountiful,_UT",425230200
+Ford,Fiesta Se,40.70394672,14500.0,2016,31895,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8230222,,262421280
+Hyundai,Elantra Gls,40.14150116,11995.0,2013,21809,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8162846,"Hyundai_Elantra_2013_in_Centerville,_UT",307310619
+Chevrolet,Sonic Ls,39.41585278,12471.0,2020,28871,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8124981,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1663481599-912674.jpg?filter=marketplace/400x300_dealer,528965268
+Nissan,Juke Sv,36.74374639,12741.0,2014,24647,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8210767,"Nissan_Juke_2014_in_Kaysville,_UT",297834348
+Nissan,Leaf,36.50435306,11995.0,2015,27000,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8328080,,328157280
+Nissan,Sentra S,36.28310114,12995.0,2018,28764,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8295131,"Nissan_Sentra_2018_in_Bountiful,_UT",348274512
+Subaru,Forester 2.5i Premium,35.98188741,12995.0,2016,26986,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8283001,"Subaru_Forester_2016_in_Lehi,_UT",326422656
+Ford,Focus Se,35.63580033,12249.0,2018,41709,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8276221,https://cars.ksl.com/images/no-image-defaults/cars-noimage_sedan-lrg.png?filter=marketplace/400x300_dealer,340300752
+Jeep,Compass Sport,34.84185287,13900.0,2016,26650,12/11/2022,KSL,False,,https://cars.ksl.com/listing/7747369,https://img.ksl.com/mx/mplace-cars.ksl.com/4482885-1661463511-909703.jpg?filter=marketplace/400x300_dealer,221410800
+Honda,Fit Ex,32.74392524,14741.0,2017,39581,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8138792,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1664086383-337348.jpg?filter=marketplace/400x300_dealer,402181549
+Cadillac,Xt4 Premium Luxury,32.56598911,14950.0,2020,20001,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8304366,,331827360
+Ford,Fiesta,32.27124842,13000.0,2019,44678,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8276453,https://img.ksl.com/mx/mplace-cars.ksl.com/2046150-1670769272-236063.jpg?filter=marketplace/400x300_cropped,363471528
+Subaru,Impreza,31.69669006,14995.0,2020,31997,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8239356,https://img.ksl.com/mx/mplace-cars.ksl.com/3943527-1668810965-837866.jpg?filter=marketplace/400x300_dealer,391267485
+Chevrolet,Spark 1lt,31.24271585,13378.0,2021,35874,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8283263,"Chevrolet_Spark_2021_in_Salt_Lake_City,_UT",652512186
+Hyundai,Elantra Se,30.21895464,11900.0,2018,36000,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8275679,https://img.ksl.com/mx/mplace-cars.ksl.com/4351581-1670713505-83025.jpg?filter=marketplace/400x300_cropped,512344000
+Toyota,Camry Se,29.79216684,13995.0,2015,41451,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8263284,"Toyota_Camry_2015_in_Lehi,_UT",501142590
+Hyundai,Veloster Base,29.20101649,8995.0,2017,40321,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8265210,"Hyundai_Veloster_2017_in_Lindon,_UT",569292199
+Chevrolet,Spark Ls,28.33675325,12995.0,2018,36193,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8275831,https://img.ksl.com/mx/mplace-cars.ksl.com/23802-1670721240-459180.jpg?filter=marketplace/400x300_dealer,660456066
+Ford,Fusion Se,28.26786221,13371.0,2015,43879,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8252615,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1669533207-90973.jpg?filter=marketplace/400x300_dealer,357274910
+Chevrolet,Spark 1lt,28.14766292,14956.0,2021,36507,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8152310,https://img.ksl.com/mx/mplace-cars.ksl.com/1112925-1666762859-895861.jpg?filter=marketplace/400x300_dealer,667929339
+Fiat,500x Pop,28.12956763,14971.0,2019,23207,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8258732,,190773236
+Kia,Soul +,27.862353,13971.0,2018,23950,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8229678,https://img.ksl.com/mx/mplace-cars.ksl.com/2733291-1668323551-132877.jpg?filter=marketplace/400x300_dealer,147424254
+Hyundai,Sonata Gls,27.4359797,9500.0,2010,34151,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8276115,https://img.ksl.com/mx/mplace-cars.ksl.com/1467918-1670751775-109736.jpg?filter=marketplace/400x300_dealer,483259570
+Chevrolet,Camaro Lt,26.06685582,14995.0,2015,32411,12/11/2022,KSL,False,,https://cars.ksl.com/listing/7522459,https://img.ksl.com/mx/mplace-cars.ksl.com/486347-1635542252-281538.jpg?filter=marketplace/400x300_dealer,591417270
+Fiat,500e Base,26.01127286,14812.0,2017,23538,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8249040,"Fiat_500e_2017_in_South_Jordan,_UT",189904584
+Fiat,500e Base,26.01127286,14812.0,2017,23538,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8249040,,193370592
+Nissan,Rogue Sv,25.00890895,11999.0,2015,38000,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8227139,https://img.ksl.com/mx/mplace-cars.ksl.com/3022613-1668215299-217183.jpg?filter=marketplace/400x300_dealer,461915792
+Nissan,Versa S,24.9808433,13970.0,2018,38141,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8017489,"Nissan_Versa_2018_in_Idaho_Falls,_ID",461811228
+Chevrolet,Cruze,24.8291764,14711.0,2015,34120,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8252528,https://img.ksl.com/mx/mplace-cars.ksl.com/1467918-1669876699-567470.jpg?filter=marketplace/400x300_dealer,620678630
+Toyota,Corolla Le,24.71076188,12995.0,2012,45000,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8220757,"Toyota_Corolla_2012_in_Millcreek,_UT",543240000
+Volkswagen,Eos Executive Sulev,23.99418931,14999.0,2012,31501,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8282948,"Volkswagen_Eos_2012_in_Salt_Lake_City,_UT",633800120
+Chevrolet,Cruze Lt Auto,23.59993088,11871.0,2018,42750,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8253496,,779974929
+Nissan,Rogue Select S,23.40956123,11995.0,2015,39700,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8254158,"Nissan_Rogue_Select_2015_in_Orem,_UT",479973000
+Not recognized,None,21.65088937,13568.0,2020,50000,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8211199,"Polaris_Ranger_1000_2020_in_Rock_Springs,_WY",1414000000
+Chevrolet,Sonic Ls,21.27956511,13748.0,2016,40428,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8090742,"Chevrolet_Sonic_2016_in_Centerville,_UT",733525632
+Chevrolet,Trax Ls,21.00694998,13500.0,2019,44174,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8047148,"Chevrolet_Trax_2019_in_Las_Vegas,_NV",802685754
+Chevrolet,Trax Ls,21.00606097,13500.0,2019,44175,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8047148,,804688425
+Nissan,Versa Note Sr,20.83103394,14095.0,2018,42457,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8283049,,517734056
+Nissan,Sentra Sv,20.72749414,13995.0,2018,42724,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8258984,"Nissan_Sentra_2018_in_Bountiful,_UT",517302192
+Nissan,Sentra Sv,20.72749414,13995.0,2018,42724,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8258984,,519821292
+Not recognized,None,20.58757372,13000.0,2018,50000,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8211198,"Polaris_RZR_S_900_2018_in_Rock_Springs,_WY",1412600000
+Hyundai,Sonata Se,20.54952254,13900.0,2015,40000,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8271235,,566702000
+Hyundai,Sonata Se,20.54952254,13900.0,2015,40000,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8271235,"Hyundai_Sonata_2015_in_Bountiful,_UT",564200000
+Nissan,Versa Note Sr,20.43398796,14395.0,2018,42457,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8283049,"Nissan_Versa_Note_2018_in_Ogden,_UT",514069356
+Subaru,Forester 2.5i,20.34818374,14995.0,2017,40632,12/11/2022,KSL,False,,https://cars.ksl.com/listing/7900671,https://img.ksl.com/mx/mplace-cars.ksl.com/468003-1653818496-844397.jpg?filter=marketplace/400x300_dealer,495822099
+Hyundai,Elantra Gt Base,18.00584112,12988.0,2014,43312,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8310912,,614119336
+Volkswagen,Beetle,17.26722722,14489.0,2013,40931,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8197337,"Volkswagen_Beetle_2013_in_Lehi,_UT",823941030
+Nissan,Altima 2.5 S,15.70958178,14998.0,2015,44149,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8270682,,536461050
+Ford,Freestar Limited,14.76363364,12588.0,2005,50000,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8328692,,403819712
+Kia,Soul +,14.67074421,14999.0,2017,36277,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8009240,,220772043
+Volkswagen,Beetle 2.5l,14.66236509,13999.0,2013,44947,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8193927,"Volkswagen_Beetle_2013_in_North_Salt_Lake,_UT",904783110
+Kia,Optima S,14.25119226,11499.0,2018,43099,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8276492,https://img.ksl.com/mx/mplace-cars.ksl.com/1873507-1670777561-708595.jpg?filter=marketplace/400x300_cropped,262301226
+Kia,Soul Ev +,13.87683815,14995.0,2016,36305,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8204155,https://img.ksl.com/mx/mplace-cars.ksl.com/626745-1667724516-873699.jpg?filter=marketplace/400x300_dealer,221462010
+Kia,Optima Lx,13.28237903,13995.0,2018,40648,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8047293,"Kia_Optima_2018_in_West_Jordan,_UT",246082992
+Kia,Optima Lx,13.28237903,13995.0,2018,40648,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8047293,,247720407
+Fiat,500e Base,13.26726521,10437.0,2016,43960,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8250401,,355714569
+Fiat,500 Pop,12.4458923,8350.0,2012,44125,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8236851,"Fiat_500_2012_in_Salt_Lake_City,_UT",355118000
+Dodge,Dart Gt,11.38845494,13300.0,2016,42282,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8186007,,427226660
+Gmc,Acadia Denali,11.12402245,14950.0,2019,43256,12/22/2022,KSL,False,,https://cars.ksl.com/listing/8260857,"GMC_Acadia_2019_in_West_Valley_City,_UT",262001592
+Dodge,Dart Gt,11.07622997,13600.0,2016,42282,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8186007,"Dodge_Dart_2016_in_Las_Vegas,_NV",426202560
+Fiat,500e Base,10.71650794,14056.0,2017,43145,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8252554,https://img.ksl.com/mx/mplace-cars.ksl.com/513543-1670482218-312889.jpg?filter=marketplace/400x300_dealer,349485404
+Mini,Cooper Countryman Base,10.48914235,14995.0,2014,39003,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8229849,https://img.ksl.com/mx/mplace-cars.ksl.com/626745-1669458272-567147.jpg?filter=marketplace/400x300_dealer,317836958
+Polaris,Ranger 1000 Eps,8.70687725,13568.0,2020,50000,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8211199,,708628160
+Polaris,Rzr S 900 Eps,7.961816141,13000.0,2018,50000,1/12/2023,KSL,False,,https://cars.ksl.com/listing/8211198,,707483000
+Gmc,2500 Work Truck,7.23685206,9795.0,2007,44755,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8050122,"GMC_2500_2007_in_Salt_Lake_City,_UT",269469855
+Mazda,Mx-5 Grand Touring,5.4083107,13910.0,2007,41787,12/15/2022,KSL,False,,https://cars.ksl.com/listing/8283035,"Mazda_MX-5_2007_in_Salt_Lake_City,_UT",419332545
+Chrysler,200 Limited,5.321980895,13995.0,2015,50000,12/15/2022,KSL,False,,https://cars.ksl.com/listing/7789271,"Chrysler_200_2015_in_Orem,_UT",806000000
+Mazda,Mx-5,3.575394381,13965.0,2006,44225,12/11/2022,KSL,False,,https://cars.ksl.com/listing/8268750,https://img.ksl.com/mx/mplace-cars.ksl.com/893623-1670397277-979391.jpg?filter=marketplace/400x300_dealer,443744330

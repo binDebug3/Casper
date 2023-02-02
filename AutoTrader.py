@@ -4,12 +4,9 @@ import Search
 
 import time
 import Compresser
-import pandas as pd
-import math
 
 import urllib.request
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
@@ -35,17 +32,20 @@ class AutoTrader(object):
         """
         # set chrome options arguments to configure chrome
         self.chrome_options = Options()
-        # disable gpu (doesn't do what I want it to
-        self.chrome_options.add_argument("--disable-gpu")
+        # self.chrome_options.add_argument("--disable-gpu")
+        # self.chrome_options.add_argument("--headless")
+        # self.chrome_options.add_argument("--no-sandbox")
+        # self.chrome_options.add_argument("--window-size=1420,1080")
         # set full screen
         self.chrome_options.add_argument("--window-size=1920,1200")
         # disable extensions to help website load faster
         self.chrome_options.add_argument("--disable-extensions")
-        self.driver = webdriver.Chrome(options=self.chrome_options)
-        # self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=self.chrome_options,
+            executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
 
         # open link
         print("\n\nScanning AutoTrader")
+        print(main.websites["AutoTrader"])
         self.website = main.websites["AutoTrader"]
         self.driver.get(self.website)
         time.sleep(5)
@@ -56,14 +56,15 @@ class AutoTrader(object):
         self.names = self.findNames()
         self.prices = self.findPrices()
         self.miles = self.findMiles()
+        self.compression = 50
         self.images = self.findImages()
         self.links = self.findLinks()
 
         # page number not currently necessary and not functional for this site
         # self.numPages, self.nextPage = self.getPages()
 
-        self.compression = 50
         self.export = True
+        self.retailer = "AutoTrader"
 
     def resetPage(self):
         """
@@ -74,8 +75,8 @@ class AutoTrader(object):
         :return:
         """
         self.driver.close()
-        self.driver = webdriver.Chrome(options=self.chrome_options)
-        # self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=self.chrome_options,
+                                       executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
         self.driver.get(self.getNextPage())
         # wait for page to load
         time.sleep(3)
@@ -197,50 +198,6 @@ class AutoTrader(object):
             names.append(elem.text)
         return names
 
-    def findBrand(self, nameList):
-        """
-        Extract the brand of the car from the listing title
-        :param nameList: name listing for the car split by spaces into a list
-        :return: match (string): the brand of the car
-        """
-        # use list operator & to get all the words that match between
-        # the set of brands and the words in the car's listing
-        match = list(set(main.brands.keys()) & set(nameList))
-        length = len(match)
-
-        # if none found, return 'Not Recognized', otherwise rebuild the string and return the brand
-        if length == 0:
-            return "Not recognized"
-        elif length > 1:
-            return " ".join(match)
-        else:
-            return match[0]
-
-    def findModel(self, nameList, brand):
-        """
-        Extract the model of the car from the listing title
-        :param nameList: name listing for the car split by spaces into a list
-        :param brand: brand of the car
-        :return:
-        """
-        if brand != "Not recognized":
-            # get the index of the brand in the name list
-            index = nameList.index(brand)
-            # return the rest of the list following the brand
-            return " ".join(nameList[index + 1:])
-        return "None"
-
-    def findYear(self, nameList):
-        """
-        Extract the year of the car from the listing title
-        :param nameList: name listing for the car split by spaces into a list
-        :return:
-        """
-        # return the first grouping of digits found in the name list
-        for word in nameList:
-            if word.isdigit():
-                return int(word)
-        return 0
 
     def findLinks(self):
         """
@@ -255,10 +212,6 @@ class AutoTrader(object):
         for elem in linkElems:
             carDetails = elem.get_attribute('href')
             links.append(carDetails)
-            # self.driver.execute_script("window.open('about:blank','_blank');")
-            # all_handles = self.driver.window_handles
-            # self.driver.switch_to.window(all_handles[1])
-            # self.driver.get(carDetails)
         return links
 
     def findImages(self):
@@ -301,72 +254,10 @@ class AutoTrader(object):
                 images.append("No image")
         return images
 
-    def getNewCars(self, garage):
-        """
-        NOT currently used
-        Read all saved cars from Excel spreadsheet and compare it to the cars scraped to identify new cars.
-        This is not the most efficient approach, and it fails to recognize matches if any of the parameters changed,
-        for better or for worse
-        :param garage:
-        :return: newCars (list): list of car objects that were not already in the database
-        """
-        # read the csv and get a list of their hashed IDs woot woot
-        dfOld = pd.read_csv('autotrader.csv')
-        oldIDs = dfOld["Hash"].values.tolist()
-
-        # compare each old ID to each new ID
-        IDS = []
-        for id in oldIDs:
-            if isinstance(id, float) and not math.isnan(id):
-                IDS.append(int(id))
-            elif isinstance(id, int):
-                IDS.append(id)
-            elif isinstance(id, str) and id.isdigit():
-                IDS.append(int(id))
-        # visibility debugging print
-        print(f"There are {len(IDS)} cars already in the table")
-
-        # build list of car objects based on the list of IDs corresponding to new cars
-        newCars = []
-        for car in garage:
-            if car.id not in IDS:
-                newCars.append(car)
-        return newCars
-
-    def toCSV(self, garage):
-        """
-        Convert a list of Car objects to a CSV
-        :param garage:
-        :return:
-        """
-        # this is only useful when saving a new csv that does not already have columns
-        columns = ["Make", "Model", "Score", "Price", "Year", "Mileage", "Date", "Source", "Link", "Hash"]
-
-        # use Car's toDict method to build a new dataframe, save it, then call the export method
-        df = pd.DataFrame([car.toDict() for car in garage])
-        df.to_csv('autotrader.csv', mode='a', index=False)
-        print(f"Found {df.shape[0]} new cars.")
-        self.exportCSV()
-
-    def exportCSV(self):
-        """
-        Clean database and export update version to overwrite the old version
-        :param self
-        :return:
-        """
-        # read the file, drop duplicates and null values, sort, then save file
-        df = pd.read_csv('autotrader.csv')
-        df = df.drop_duplicates(["Hash"])
-        df = df[df.Make != "Make"]
-        df.Score = df.Score.astype(float)
-        df.Price = df.Price.astype(float)
-        df = df.sort_values(["Score", "Price"], ascending=False)
-        print(f"Exported {df.shape[0] - 1} cars to 'autotrader.csv'")
-        df.to_csv('autotrader.csv', index=False, mode='w')
 
     def peruseCars(self, send=True):
         if not send:
-            print("I will not update the CSV file on this round.")
+            print(f"I will not update the {self.retailer} CSV file on this round.")
             self.export = False
         # for each car on each page, build a Car object and set all of its attributes
         while self.resCount == 25:
@@ -376,48 +267,19 @@ class AutoTrader(object):
                 car.setPrice(self.prices[i + 1])
                 car.setMiles(self.miles[i])
                 car.setLink(self.links[i + 1])
-                car.setBrand(self.findBrand(car.nameList))
-                car.setModel(self.findModel(car.nameList, car.brand))
-                car.setYear(self.findYear(car.nameList))
-                car.setSource("AutoTrader")
+                car.setBrand(Search.findBrand(car.nameList))
+                car.setModel(Search.findModel(car.nameList, car.brand))
+                car.setYear(Search.findYear(car.nameList))
+                car.setSource(self.retailer )
                 if i < len(self.images):
                     car.setImage(self.images[i])
                 else:
                     car.setImage("Image not found")
                 car.setScore()
                 self.cars.append(car)
-            # thing = self.driver.find_element(By.CSS_SELECTOR, "[aria-label='Next Page']")
 
             # load the next page
             self.resetPage()
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
-            self.toCSV(sorted(self.cars, key=lambda x: x.score)[::-1])
-
-
-# ATTEMPTED AUTOTRADER OBJECT BASED ON A SEARCH SUPERCLASS. I DON'T THINK IT WILL WORK
-
-# class AutoTrader2(Search):
-#     def __init__(self):
-#         self.webName = "AutoTrader"
-#         self.website = "https://www.autotrader.com/cars-for-sale/cars-under-" + p["maxPrice"] + "/" + p["city"] + \
-#                         "-" + p["state"] + "-" + p["zipCode"] + \
-#                         "?requestId=1819194850&dma=&transmissionCodes=AUT&searchRadius=" + p["radius"] + \
-#                         "&priceRange=&location=&marketExtension=include&maxMileage=" + p["maxMiles"] + \
-#                         "&isNewSearch=true&showAccelerateBanner=false&sortBy=relevance&numRecords=25&firstRecord=0"
-#         self.searchBy = {
-#             "count": "results-text-container",
-#             "prices": "first-price",
-#             "miles": "item-card-specifications",
-#             "names": "text-size-sm-500",
-#             "links": "//div[@class='display-flex justify-content-between']/a"
-#         }
-#         super().__init__(self.webName, self.website)
-#         self.resCount = self.getCount(self.searchBy["count"])
-#         self.prices = self.findPrices(self.searchBy["prices"])
-#         self.miles = self.findMiles(self.searchBy["miles"])
-#         self.names = self.findNames(self.searchBy["names"])
-#         self.links = self.findLinks(self.searchBy["links"])
-#         # self.findImages("image-vertically-aligned")
-#         self.updateBool()
-
+            Search.toCSV(self.retailer , sorted(self.cars, key=lambda x: x.score)[::-1])
