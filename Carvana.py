@@ -158,39 +158,36 @@ class Carvana(object):
 
 
     def findPrices(self):
-        # TODO Not implemented
         """
         Find the prices for each car
         :param self
         :return: prices (list): list of price strings
         """
         prices = []
-        priceClass = ""
+        priceClass = "flex items-end font-bold mb-4 text-2xl"
         # get a list of price elements and save the parsed text content
-        priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)[4:]
+        priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)
         for elem in priceElems:
             prices.append(elem.text.replace(",", "").replace("$", "").split()[0])
         return prices
 
 
     def findMiles(self):
-        # TODO Not implemented
         """
         Find the mileage for each car
         :param self
         :return: miles (list): list of mileage strings
         """
         miles = []
-        mileClass = ""
+        milePath = "//div[@class='trim-mileage']/span[2]"
         # get a list of mileage elements and save the parsed text content
-        mileElems = self.driver.find_elements(By.XPATH, mileClass)[::2][4:]
+        mileElems = self.driver.find_elements(By.XPATH, milePath)
         for elem in mileElems:
             stat = elem.text.replace(",", "").split()[0]
             miles.append(stat)
         return miles
 
     def findNames(self):
-        # TODO Not implemented
         """
         Find the listing title for each car
             ex) 2017 Toyota Corolla
@@ -198,9 +195,9 @@ class Carvana(object):
         :return: names (list): list of name strings
         """
         names = []
-        nameID = ""
+        nameClass = "make-model"
         # get a list of name elements and save the text content
-        nameElems = self.driver.find_elements(By.CLASS_NAME, nameID)[4:]
+        nameElems = self.driver.find_elements(By.CLASS_NAME, nameClass)[:-4]
         for elem in nameElems:
             names.append(elem.text)
         return names

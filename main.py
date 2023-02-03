@@ -89,7 +89,7 @@ if __name__ == "__main__":
         csv = 'start "excel.exe" "CarsDirect.csv"'
         csv = 'start "excel.exe" "Detailed_CarsDirect.csv"'
     if any(i in selector for i in [0, 6]):
-        Carvana.Carvana(detailed=detailed)
+        Carvana.Carvana(detailed=detailed).peruseCars()
         # csv = 'start "excel.exe" "Carvana.csv"'
     if any(i in selector for i in [0, 7]):
         Lowbook.Lowbook(detailed=detailed)
