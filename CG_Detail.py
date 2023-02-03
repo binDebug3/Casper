@@ -93,7 +93,7 @@ class CG_Detail(object):
         except NoSuchElementException as ex:
             print("Markdown element not found")
             print(ex.msg)
-            time.sleep(300)
+            # time.sleep(300)
             return "Not found"
 
 

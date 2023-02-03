@@ -3,6 +3,7 @@ import KSL
 import CarGuru
 import CarsDirect
 import Carvana
+import Lowbook
 from plyer import notification
 from datetime import date
 import os
@@ -13,9 +14,9 @@ import os
 p = {
     "maxPrice": "15000",
     "minPrice": "8000",
-    "maxMiles": "55000",
-    "altMax": "50000",
-    "minYear": "2000",
+    "maxMiles": "70000",
+    "altMax": "70000",
+    "minYear": "2010",
     "currentYear": 2023,
     "radius": "50",
     "city": "provo",
@@ -68,7 +69,7 @@ websites = {
             "Carvana": "https://www.carvana.com/cars",
 }
 detailed = False
-selector = [6]
+selector = [6, 7]
 
 
 if __name__ == "__main__":
@@ -78,7 +79,7 @@ if __name__ == "__main__":
     if any(i in selector for i in [0, 1]):
         AutoTrader.AutoTrader().peruseCars()
     if any(i in selector for i in [0, 2]):
-        KSL.KSL(detailed=detailed).peruseCars()
+        KSL.KSL(detailed=False).peruseCars()
         csv = 'start "excel.exe" "ksl.csv"'
     if any(i in selector for i in [0, 3]):
         CarGuru.CarGuru(detailed=detailed).peruseCars()
@@ -90,6 +91,9 @@ if __name__ == "__main__":
     if any(i in selector for i in [0, 6]):
         Carvana.Carvana(detailed=detailed)
         # csv = 'start "excel.exe" "Carvana.csv"'
+    if any(i in selector for i in [0, 7]):
+        Lowbook.Lowbook(detailed=detailed)
+        # csv = 'start "excel.exe" "Lowbook.csv"'
 
     # send a notification to the computer
     if len(selector) == 1:
@@ -105,7 +109,6 @@ if __name__ == "__main__":
 
     # open the corresponding Excel file
     os.system(csv)
-
 
 # list of things to do
 # TODO test functionality on wider parameters and different parameters
