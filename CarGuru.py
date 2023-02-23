@@ -242,12 +242,12 @@ class CarGuru(object):
             # get the link to the element
             src = elem.get_attribute('src')
             # build a name for the image based on its alt text
-            alt = "_".join(elem.get_attribute('alt').split())
+            alt = "_".join(elem.get_attribute('alt').split()).replace("\\", "").replace("/", "")
             path = "Images/" + alt + ".png"
             # save the image
             try:
                 urllib.request.urlretrieve(src, path)
-            except URLError as ex:
+            except (URLError, FileNotFoundError) as ex:
                 print("Error retrieving image")
                 print(path)
                 print(ex)

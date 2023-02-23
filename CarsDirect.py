@@ -101,7 +101,7 @@ class CarsDirect(object):
         :param self
         :return:
         """
-        # get results text and parse it, then print for visibility
+        # get results text and parse it, then show for visibility
         resCountID = "pager-text"
         try:
             results = self.driver.find_element(By.CLASS_NAME, resCountID).text.split()
@@ -199,7 +199,13 @@ class CarsDirect(object):
         linkElems = self.driver.find_elements(By.CLASS_NAME, linkPath)
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
-        print(links)
+        if len(links) > 0 and links[0] is None:
+            print("Error collecting links")
+            count = 0
+            for l in links:
+                if l is None:
+                    count += 1
+            print(f"{count} links recorded as 'None'")
         if self.detailed:
             for i in range(len(links)):
                 try:
@@ -226,9 +232,10 @@ class CarsDirect(object):
         imageElems = self.driver.find_elements(By.XPATH, imageClass)
         count = 0
         for elem in imageElems:
-            filePath = "Images/" + str(date.today()).replace("-", "_") + "_" + \
+            alt = str(date.today()).replace("-", "_") + "_" + \
                        str(random.randint(0, 200)) + "_" + \
-                       str(count) + ".png"
+                       str(count)
+            filePath = "Images/" + alt.replace("\\", "").replace("/", "") + ".png"
             count += 1
             try:
                 elem.screenshot(filePath)

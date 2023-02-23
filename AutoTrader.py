@@ -48,8 +48,7 @@ class AutoTrader(object):
         print(main.websites["AutoTrader"])
         self.website = main.websites["AutoTrader"]
         self.driver.get(self.website)
-        time.sleep(5)
-        print(self.website)
+        time.sleep(2)
         # call methods that scrape the website to build parameter lists
         self.cars = []
         self.resCount = self.getCount()
@@ -232,7 +231,7 @@ class AutoTrader(object):
             # get the link to the element
             src = elem.get_attribute('src')
             # build a name for the image based on its alt text
-            alt = "_".join(elem.get_attribute('alt').split())
+            alt = "_".join(elem.get_attribute('alt').split()).replace("\\", "").replace("/", "")
             path = "Images/" + alt + ".png"
             # save the image
             try:
@@ -270,7 +269,7 @@ class AutoTrader(object):
                 car.setBrand(Search.findBrand(car.nameList))
                 car.setModel(Search.findModel(car.nameList, car.brand))
                 car.setYear(Search.findYear(car.nameList))
-                car.setSource(self.retailer )
+                car.setSource(self.retailer)
                 if i < len(self.images):
                     car.setImage(self.images[i])
                 else:
@@ -280,6 +279,7 @@ class AutoTrader(object):
 
             # load the next page
             self.resetPage()
+            self.resCount = 0
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
-            Search.toCSV(self.retailer , sorted(self.cars, key=lambda x: x.score)[::-1])
+            Search.toCSV(self.retailer, sorted(self.cars, key=lambda x: x.score)[::-1])

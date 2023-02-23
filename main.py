@@ -4,6 +4,7 @@ import CarGuru
 import CarsDirect
 import Carvana
 import Lowbook
+import Search
 from plyer import notification
 from datetime import date
 import os
@@ -69,31 +70,48 @@ websites = {
             "Carvana": "https://www.carvana.com/cars",
 }
 detailed = False
-selector = [6, 7]
+selector = [5]
+# todo edit
 
 
 if __name__ == "__main__":
     # Casper scrapes websites and opens their Excel file based on the selector list
     csv = 'start "excel.exe" "autotrader.csv"'
 
+    # 1 - AutoTrader
     if any(i in selector for i in [0, 1]):
         AutoTrader.AutoTrader().peruseCars()
+
+    # 2 - KSL
     if any(i in selector for i in [0, 2]):
         KSL.KSL(detailed=False).peruseCars()
         csv = 'start "excel.exe" "ksl.csv"'
+
+    # 3 CarGuru
     if any(i in selector for i in [0, 3]):
         CarGuru.CarGuru(detailed=detailed).peruseCars()
         csv = 'start "excel.exe" "CarGuru.csv"'
+
+    # 4 - CarsDirect
     if any(i in selector for i in [0, 4]):
         CarsDirect.CarsDirect(detailed=detailed).peruseCars()
         csv = 'start "excel.exe" "CarsDirect.csv"'
-        csv = 'start "excel.exe" "Detailed_CarsDirect.csv"'
-    if any(i in selector for i in [0, 6]):
+        # csv = 'start "excel.exe" "Detailed_CarsDirect.csv"'
+
+    # 5 - Carvana
+    if any(i in selector for i in [0, 5]):
         Carvana.Carvana(detailed=detailed).peruseCars()
-        # csv = 'start "excel.exe" "Carvana.csv"'
-    if any(i in selector for i in [0, 7]):
+        csv = 'start "excel.exe" "Carvana.csv"'
+
+    # 6 - Lowbook
+    if any(i in selector for i in [0, 6]):
         Lowbook.Lowbook(detailed=detailed)
         # csv = 'start "excel.exe" "Lowbook.csv"'
+
+    # combination
+    Search.combine()
+    if len(selector) > 1 or 0 in selector:
+        csv = 'start "excel.exe" "current_market.csv"'
 
     # send a notification to the computer
     if len(selector) == 1:
@@ -111,11 +129,4 @@ if __name__ == "__main__":
     os.system(csv)
 
 # list of things to do
-# TODO test functionality on wider parameters and different parameters
-
 # TODO NLP understand descriptions
-# TODO make image classifier for cool cars
-
-# small things
-# TODO scrape lowbook
-# TODO scrape carvana

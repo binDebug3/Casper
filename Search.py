@@ -34,8 +34,12 @@ def findBrand(nameList):
     # if none found, return 'Not Recognized', otherwise rebuild the string and return the brand
     if length == 0:
         return "Not recognized"
-    elif length > 1:
-        return " ".join(match)
+    # elif length > 1:
+    #     print("Length was greater than zero")
+    #     print(nameList)
+    #     print(length)
+    #     print(match)
+    #     return " ".join(match)
     else:
         return match[0]
 
@@ -49,9 +53,14 @@ def findModel(nameList, brand):
     """
     if brand != "Not recognized":
         # get the index of the brand in the name list
-        index = nameList.index(brand)
-        # return the rest of the list following the brand
-        return " ".join(nameList[index + 1:])
+        try:
+            index = nameList.index(brand)
+            # return the rest of the list following the brand
+            return " ".join(nameList[index + 1:])
+        except ValueError as ex:
+            index = nameList.index(brand.split()[0])
+            # return the rest of the list following the brand
+            return " ".join(nameList[index + 1:])
     return "None"
 
 
@@ -151,7 +160,7 @@ def toCSV(retailer, garage):
 
     # drop hash duplicates so that OnSale=True remains
     df = df[df.Make != "Make"]
-    df = df.sort_values(["OnSale"], ascending=False)
+    df = df.sort_values(["OnSale", "Date"], ascending=False)
     df = df.drop_duplicates(["Hash"])
 
     # clean data frame
@@ -182,3 +191,17 @@ def toCSV(retailer, garage):
     df = df.sort_values(["Days"], ascending=True)
     df = df.sort_values(["OnSale", "Score", "Price"], ascending=False)
     df.to_csv(fileName, index=False, mode='w')
+
+def combine():
+    df_a = pd.read_csv('autotrader.csv')
+    df_b = pd.read_csv('ksl.csv')
+    df_c = pd.read_csv('Carvana.csv')
+    df_d = pd.read_csv('CarGuru.csv')
+    df_e = pd.read_csv('CarsDirect.csv')
+
+    df_combined = pd.concat([df_a, df_b, df_c, df_d, df_e])
+    df_combined = df_combined.sort_values(by=['Days'], ascending=True)
+    df_combined = df_combined.sort_values(by=['OnSale', 'Score'], ascending=False)
+    df_combined = df_combined.drop_duplicates(subset='Hash')
+
+    df_combined.to_csv("current_market.csv", index=False, mode='w')
