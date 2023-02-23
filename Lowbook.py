@@ -34,9 +34,9 @@ class Lowbook(object):
                 compression (list): rank to compress each image, 0 means do not compress
         :return:
         """
-        websites = main.websites
+        self.websites = "https://www.lowbooksales.com/used-cars"
         print("\n\nScanning Lowbook")
-        print(websites["Lowbook"])
+        print(self.websites)
         # set chrome options arguments to configure chrome
         self.chrome_options = Options()
         # self.chrome_options.add_argument("--disable-gpu")
@@ -45,23 +45,29 @@ class Lowbook(object):
         # self.chrome_options.add_argument("--window-size=1420,1080")
         # set full screen
         self.chrome_options.add_argument("--window-size=1920,1200")
+        self.chrome_options.add_argument('--ignore-certificate-errors')
+        self.chrome_options.add_argument('--ignore-ssl-errors')
         # disable extensions to help website load faster
         self.chrome_options.add_argument("--disable-extensions")
         self.driver = webdriver.Chrome(options=self.chrome_options,
             executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
-        self.driver.get(websites["Lowbook"])
+        self.driver.get(self.websites)
         time.sleep(3)
 
-        self.setMileage()
+        # self.setMileage()
         self.cars = []
         self.detailed = detailed
         self.compression = 50
         count = 0
         try:
-            self.resCount = self.getCount()
             self.names = self.findNames()
+            print(self.names)
+            self.resCount = len(self.names)
+            print(self.resCount)
             self.prices = self.findPrices()
+            print(self.prices)
             self.miles = self.findMiles()
+            print(self.miles)
             self.images = self.findImages()
             self.links, self.carDetails = self.findLinks()
         except StaleElementReferenceException as ex:
@@ -69,8 +75,8 @@ class Lowbook(object):
             count += 1
             print(ex)
             print(count)
-            self.resCount = self.getCount()
             self.names = self.findNames()
+            self.resCount = len(self.names)
             self.prices = self.findPrices()
             self.miles = self.findMiles()
             self.images = self.findImages()
@@ -91,8 +97,8 @@ class Lowbook(object):
         :param self
         :return:
         """
-        self.resCount = self.getCount()
         self.names = self.findNames()
+        self.resCount = len(self.names)
         self.prices = self.findPrices()
         self.miles = self.findMiles()
         self.links = self.findLinks()
@@ -151,9 +157,9 @@ class Lowbook(object):
         :return: prices (list): list of price strings
         """
         prices = []
-        priceClass = ""
+        priceClass = "price-value"
         # get a list of price elements and save the parsed text content
-        priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)[4:]
+        priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)[1::2]
         for elem in priceElems:
             prices.append(elem.text.replace(",", "").replace("$", "").split()[0])
         return prices
@@ -164,8 +170,8 @@ class Lowbook(object):
 
         :return:
         """
-        sliderClass = ""
-        barClass = ""
+        sliderClass = "slider-handle min-slider-handle round"
+        barClass = "slider-selection"
         slideButton = self.driver.find_element(By.CLASS_NAME, sliderClass)
         slider = self.driver.find_element(By.CLASS_NAME, barClass)
         length = float(slider.size["width"])
@@ -183,12 +189,11 @@ class Lowbook(object):
         :return: miles (list): list of mileage strings
         """
         miles = []
-        mileClass = ""
+        mileClass = "//span[@class='spec-value spec-value-miles']"
         # get a list of mileage elements and save the parsed text content
-        mileElems = self.driver.find_elements(By.XPATH, mileClass)[::2][4:]
+        mileElems = self.driver.find_elements(By.XPATH, mileClass)[::2]
         for elem in mileElems:
-            stat = elem.text.replace(",", "").split()[0]
-            miles.append(stat)
+            miles.append(elem.text.replace(",", "").split()[0])
         return miles
 
     def findNames(self):
@@ -200,9 +205,9 @@ class Lowbook(object):
         :return: names (list): list of name strings
         """
         names = []
-        nameID = ""
+        nameID = "v-title"
         # get a list of name elements and save the text content
-        nameElems = self.driver.find_elements(By.CLASS_NAME, nameID)[4:]
+        nameElems = self.driver.find_elements(By.CLASS_NAME, nameID)
         for elem in nameElems:
             names.append(elem.text)
         return names
@@ -217,9 +222,9 @@ class Lowbook(object):
         links = []
         carDetails = []
         actions = ActionChains(self.driver)
-        linkPath = ""
+        linkPath = "//div[@class='v-title']/a"
         # get the link elements and build a list of their href attributes
-        linkElems = self.driver.find_elements(By.XPATH, linkPath)[4:]
+        linkElems = self.driver.find_elements(By.XPATH, linkPath)
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
         if self.detailed:
@@ -240,7 +245,7 @@ class Lowbook(object):
         """
         # get a list of image elements
         images = []
-        imagePath = ""
+        imagePath = "//span[@class='v-image-inner']/img"
         imageElems = self.driver.find_elements(By.XPATH, imagePath)
         for elem in imageElems:
             # get the link to the element
@@ -251,7 +256,7 @@ class Lowbook(object):
             # save the image
             try:
                 urllib.request.urlretrieve(src, path)
-            except URLError as ex:
+            except (URLError, FileNotFoundError) as ex:
                 print("Error retrieving image")
                 print(path)
                 print(ex)
@@ -274,7 +279,7 @@ class Lowbook(object):
             print("I will not update the CSV file on this round.")
             self.export = False
         # for each car on each page, build a Car object and set all of its attributes
-        while self.resCount == 15 and len(self.cars) < 200:
+        while len(self.cars) < self.resCount:
             time.sleep(0.5)
             for i in range(len(self.names)):
                 car = Car.Car(self.detailed)
@@ -305,12 +310,15 @@ class Lowbook(object):
                 if self.detailed:
                     car.setAddDetail(self.carDetails[i])
                 self.cars.append(car)
-
             # load the next page
-            self.getNextPage()
+            # self.getNextPage()
             time.sleep(1)
             self.resetPage()
         # export new Car list to CSV
+        print("len self.cars ", len(self.cars))
+        print("self.export", self.export)
         if len(self.cars) > 0 and self.export:
+            print("self.retailer", self.retailer)
+            print("len of big thing", len(sorted(self.cars, key=lambda x: x.score)[::-1]))
+            print("big things first val", sorted(self.cars, key=lambda x: x.score)[::-1][0])
             Search.toCSV(self.retailer, sorted(self.cars, key=lambda x: x.score)[::-1])
-
