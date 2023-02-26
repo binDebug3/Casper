@@ -87,7 +87,7 @@ def getNewCars(retailer, garage):
     :return: newCars (list): list of car objects that were not already in the database
     """
     # read the csv and get a list of their hashed IDs woot woot
-    fileName = retailer + ".csv"
+    fileName = "Data/" + retailer + ".csv"
     dfOld = pd.read_csv(fileName)
     oldIDs = dfOld["Hash"].values.tolist()
 
@@ -120,7 +120,7 @@ def toCSV__OLD__(retailer, garage):
     # this is only useful when saving a new csv that does not already have columns
     columns = ["Make", "Model", "Score", "Price", "Year", "Mileage", "Date", "OnSale", "Days",
                "Source", "Link", "Image", "Hash"]
-    fileName = retailer + ".csv"
+    fileName = "Data/" + retailer + ".csv"
 
     dfOld = pd.read_csv(fileName)
     dfOld.OnSale = "False"
@@ -146,13 +146,13 @@ def toCSV(retailer, garage):
     columns = ["Make", "Model", "Score", "Price", "Year", "Mileage", "Date", "OnSale", "Days",
                "Source", "Link", "Image", "Hash"]
     # read the file and set OnSale to false
-    fileName = retailer + ".csv"
+    fileName = "Data/" + retailer + ".csv"
     dfOld = pd.read_csv(fileName)
     dfOld.OnSale = "False"
 
     # use Car's toDict method to build a new dataframe with the new cars
     df = pd.DataFrame([car.toDict() for car in garage])
-    df.to_csv("New_CarGuru_011823.csv", index=False, mode='w')
+    df.to_csv("Data/New_CarGuru_011823.csv", index=False, mode='w')
     print(f"Found {df.shape[0]} new cars.")
 
     # append new cars to old cars
@@ -170,7 +170,7 @@ def toCSV(retailer, garage):
 
     # increment the number of days since last update
     today = datetime.date.today()
-    pickleName = "last_update_" + retailer + ".pickle"
+    pickleName = "Data/last_update_" + retailer + ".pickle"
 
     # get the last update date
     try:
@@ -193,15 +193,15 @@ def toCSV(retailer, garage):
     df.to_csv(fileName, index=False, mode='w')
 
 def combine():
-    df_a = pd.read_csv('autotrader.csv')
-    df_b = pd.read_csv('ksl.csv')
-    df_c = pd.read_csv('Carvana.csv')
-    df_d = pd.read_csv('CarGuru.csv')
-    df_e = pd.read_csv('CarsDirect.csv')
+    df_a = pd.read_csv('Data/autotrader.csv')
+    df_b = pd.read_csv('Data/ksl.csv')
+    df_c = pd.read_csv('Data/Carvana.csv')
+    df_d = pd.read_csv('Data/CarGuru.csv')
+    df_e = pd.read_csv('Data/CarsDirect.csv')
 
     df_combined = pd.concat([df_a, df_b, df_c, df_d, df_e])
     df_combined = df_combined.sort_values(by=['Days'], ascending=True)
     df_combined = df_combined.sort_values(by=['OnSale', 'Score'], ascending=False)
     df_combined = df_combined.drop_duplicates(subset='Hash')
 
-    df_combined.to_csv("current_market.csv", index=False, mode='w')
+    df_combined.to_csv("Data/current_market.csv", index=False, mode='w')

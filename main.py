@@ -76,7 +76,7 @@ selector = [5]
 
 if __name__ == "__main__":
     # Casper scrapes websites and opens their Excel file based on the selector list
-    csv = 'start "excel.exe" "autotrader.csv"'
+    csv = 'start "excel.exe" "Data/autotrader.csv"'
 
     # 1 - AutoTrader
     if any(i in selector for i in [0, 1]):
@@ -85,33 +85,33 @@ if __name__ == "__main__":
     # 2 - KSL
     if any(i in selector for i in [0, 2]):
         KSL.KSL(detailed=False).peruseCars()
-        csv = 'start "excel.exe" "ksl.csv"'
+        csv = 'start "excel.exe" "Data/ksl.csv"'
 
     # 3 CarGuru
     if any(i in selector for i in [0, 3]):
         CarGuru.CarGuru(detailed=detailed).peruseCars()
-        csv = 'start "excel.exe" "CarGuru.csv"'
+        csv = 'start "excel.exe" "Data/CarGuru.csv"'
 
     # 4 - CarsDirect
     if any(i in selector for i in [0, 4]):
         CarsDirect.CarsDirect(detailed=detailed).peruseCars()
-        csv = 'start "excel.exe" "CarsDirect.csv"'
-        # csv = 'start "excel.exe" "Detailed_CarsDirect.csv"'
+        csv = 'start "excel.exe" "Data/CarsDirect.csv"'
+        # csv = 'start "excel.exe" "Data/Detailed_CarsDirect.csv"'
 
     # 5 - Carvana
     if any(i in selector for i in [0, 5]):
         Carvana.Carvana(detailed=detailed).peruseCars()
-        csv = 'start "excel.exe" "Carvana.csv"'
+        csv = 'start "excel.exe" "Data/Carvana.csv"'
 
     # 6 - Lowbook
     if any(i in selector for i in [0, 6]):
         Lowbook.Lowbook(detailed=detailed)
-        # csv = 'start "excel.exe" "Lowbook.csv"'
+        # csv = 'start "excel.exe" "Data/Lowbook.csv"'
 
     # combination
     Search.combine()
     if len(selector) > 1 or 0 in selector:
-        csv = 'start "excel.exe" "current_market.csv"'
+        csv = 'start "excel.exe" "Data/current_market.csv"'
 
     # send a notification to the computer
     if len(selector) == 1:

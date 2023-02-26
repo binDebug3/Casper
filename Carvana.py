@@ -77,8 +77,16 @@ class Carvana(object):
             self.prices = self.findPrices()
             self.miles = self.findMiles()
             self.images = self.findImages()
+
             print("looking for links")
-            self.links, self.carDetails = self.findLinks()
+            self.links = []
+            count = 0
+            while len(self.links) < len(self.prices):
+                self.links, self.carDetails = self.findLinks()
+                if count > 0:
+                    print("Retrying link search attempt:", count)
+                count += 1
+
         except StaleElementReferenceException as ex:
             time.sleep(2)
             count += 1
@@ -168,13 +176,22 @@ class Carvana(object):
         wrongPage = True
         while wrongPage:
             try:
-                self.setUpPage()
+                # mileInput = "//input[@class='DebouncedInput__Input-sc-10o1wzo-1 jcBsSA']"
+                b = self.driver.find_elements(By.CLASS_NAME, "fivNwy")
+                c = b[3]
+                c.click()
+                # d = self.driver.find_elements(By.XPATH, mileInput)
+                # e = d[3]
+                # e.send_keys(main.p["maxMiles"])
+                # time.sleep(0.1)
+                # c.click()
                 wrongPage = False
             except IndexError as ex:
                 print(ex)
                 print(f"\tAlert: Refreshing page {self.website[-1]} because website B loaded instead")
                 self.driver = webdriver.Chrome(options=self.chrome_options,
                                                executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
+                print(self.website)
                 self.driver.get(self.website)
             time.sleep(2)
         print("Page:", end)
@@ -245,16 +262,17 @@ class Carvana(object):
 
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.XPATH, linkPath)
-        for elem in linkElems:
+        print("\nLinks")
+        for i, elem in enumerate(linkElems):
             links.append(elem.get_attribute('href'))
-        print("Links")
-        print(links)
+            print(i, "\t", elem.get_attribute('href'))
+        # print(links)
 
         if self.detailed:
             for i in range(len(links)):
                 print(f"(Car {i}) Checking: {self.names[i]}")
                 try:
-                    continue
+                    linkElems[i].click()
                 except ElementClickInterceptedException as ex:
                     break
 
