@@ -302,9 +302,12 @@ class CarGuru(object):
                 self.cars.append(car)
 
             # load the next page
-            self.getNextPage()
-            time.sleep(1)
-            self.resetPage()
+            try:
+                self.getNextPage()
+                time.sleep(1)
+                self.resetPage()
+            except:
+                self.resCount = 0
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
             Search.toCSV(self.retailer, sorted(self.cars, key=lambda x: x.score)[::-1])

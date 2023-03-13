@@ -279,7 +279,6 @@ class AutoTrader(object):
 
             # load the next page
             self.resetPage()
-            self.resCount = 0
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
             Search.toCSV(self.retailer, sorted(self.cars, key=lambda x: x.score)[::-1])

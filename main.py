@@ -13,9 +13,9 @@ import os
 
 # PARAMETERS
 p = {
-    "maxPrice": "15000",
+    "maxPrice": "18000",
     "minPrice": "8000",
-    "maxMiles": "70000",
+    "maxMiles": "50000",
     "altMax": "70000",
     "minYear": "2010",
     "currentYear": 2023,
@@ -25,8 +25,8 @@ p = {
     "zipCode": "84601",
     "used": True,
 
-    "priceWeight": 1,
-    "mileageWeight": 2,
+    "priceWeight": 2,
+    "mileageWeight": 4,
     "yearWeight": 1,
     "makeWeight": 1,
 }
@@ -70,7 +70,7 @@ websites = {
             "Carvana": "https://www.carvana.com/cars",
 }
 detailed = False
-selector = [5]
+selector = [3,4,5]
 # todo edit
 
 

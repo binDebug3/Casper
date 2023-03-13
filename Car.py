@@ -213,7 +213,7 @@ class Car(object):
         yearInt = int(p["minYear"])
 
         # add the mileage score to the total
-        score += (milesInt - int(self.miles)) / milesInt * p["mileageWeight"] / numParam
+        score += (2 * milesInt - int(self.miles)) / 2 / milesInt * p["mileageWeight"] / numParam
         # add the price score to the total
         score += (priceInt - int(self.price)) / priceInt * p["priceWeight"] / numParam
         # add the year score to the total
