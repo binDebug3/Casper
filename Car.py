@@ -52,6 +52,7 @@ class Car(object):
         self.detailed = detailed
         self.addDetails = ""
 
+
     # SETTERS
     def setBrand(self, brand):
         """
@@ -62,6 +63,8 @@ class Car(object):
         if type(brand) is not str:
             raise TypeError(f"Brand of the car must be a string. Instead received {type(brand)} - {brand}")
         self.brand = brand
+
+
     def setModel(self, model):
         """
         Set the model attribute
@@ -71,6 +74,8 @@ class Car(object):
         if type(model) is not str:
             raise TypeError(f"Model of the car must be a string. Instead received {type(model)} - {model}")
         self.model = model
+
+
     def setPrice(self, price):
         """
         Set the price attribute
@@ -80,6 +85,8 @@ class Car(object):
         if type(price) is not str:
             raise TypeError(f"Price of the car must be a string. Instead received {type(price)} - {price}")
         self.price = price
+
+
     def setMiles(self, miles):
         """
         Set the mileage attribute
@@ -89,6 +96,8 @@ class Car(object):
         if type(miles) is not str:
             raise TypeError(f"Mileage of the car must be a string. Instead received {type(miles)} - {miles}")
         self.miles = miles
+
+
     def setYear(self, year):
         """
         Set the year attribute
@@ -98,6 +107,8 @@ class Car(object):
         if type(year) is not int:
             raise TypeError(f"Year of the car must be an int. Instead received {type(year)} - {year}")
         self.year = year
+
+
     def setName(self, name):
         """
         Set the name attribute
@@ -108,6 +119,8 @@ class Car(object):
             raise TypeError(f"Name of the car must be a string. Instead received {type(name)} - {name}")
         self.name = name
         self.setNameList(name)
+
+
     def setNameList(self, name):
         """
         Build a list out of the name attribute
@@ -117,17 +130,23 @@ class Car(object):
         if type(name) is not str:
             raise TypeError(f"List of names must be a string. Instead recieved {type(name)} - {name}")
         self.nameList = name.lower().split()
+
+
     def setOnMarket(self, update="True"):
         if update == "False":
             self.onMarket = update
         else:
             self.onMarket = "True"
+
+
     def setDaysOnMarket(self, update=1):
         if type(update) is not int:
             raise TypeError(f"Number of days on market must be an integer. Instead received {type(update)} - {update}")
         if update < 1:
             raise ValueError(f"Number of days on market must be positive. Instead received {update} - {update}")
         self.daysOnMarket = update
+
+
     def setPhone(self, phone):
         # UNUSED
         """
@@ -136,18 +155,24 @@ class Car(object):
         :return:
         """
         self.phone = phone
+
+
     def setHash(self):
         """
         Set the id attribute to the hash value
         :return:
         """
         self.id = self.hash()
+
+
     def setDate(self):
         """
         Set the retrieval date of the car as today's date
         :return:
         """
         self.date = date.today()
+
+
     def setSource(self, source):
         """
         Set the source attribute
@@ -157,6 +182,8 @@ class Car(object):
         if type(source) is not str:
             raise TypeError(f"Source of the car must be a string. Instead received {type(source)} - {source}")
         self.source = source
+
+
     def setRating(self, rating):
         # UNUSED
         """
@@ -167,6 +194,8 @@ class Car(object):
         if type(rating) is not str:
             raise TypeError(f"Rating of the car must be a string. Instead received {type(rating)} - {rating}")
         self.rating = rating
+
+
     def setDistance(self, distance):
         """
         Set the distance attribute
@@ -177,6 +206,8 @@ class Car(object):
             raise TypeError(f"Distance for the car must be a string. Instead received {type(distance)} - {distance}")
 
         self.distance = distance
+
+
     def setLink(self, link):
         """
         Set the link attribute
@@ -186,6 +217,8 @@ class Car(object):
         if type(link) is not str:
             raise TypeError(f"Link for the car must be a string. Instead received {type(link)} - {link}")
         self.link = link
+
+
     def setImage(self, imagePath):
         """
         Set the image attribute
@@ -195,8 +228,11 @@ class Car(object):
         if type(imagePath) is not str:
             raise TypeError(f"Path to image in files for the car must be a string. Instead received {type(imagePath)} - {imagePath}")
         self.image = imagePath
+
+
     def setAddDetail(self, details):
         self.addDetails = details.toDict()
+
 
     # ASSIGN SCORE OUT OF 100
     def setScore(self):
@@ -214,11 +250,14 @@ class Car(object):
 
         # add the mileage score to the total
         score += (2 * milesInt - int(self.miles)) / 2 / milesInt * p["mileageWeight"] / numParam
+
         # add the price score to the total
         score += (priceInt - int(self.price)) / priceInt * p["priceWeight"] / numParam
+
         # add the year score to the total
         if int(self.year) > yearInt:
             score += (int(self.year) - yearInt) / (p["currentYear"] - yearInt) * p["yearWeight"] / numParam
+
         # add the model score to the total
         score += self.makeVal() * p["makeWeight"] / numParam
 
@@ -227,6 +266,7 @@ class Car(object):
             self.score = score * (score + 0.4) * 100
         else:
             self.score = score * 100
+
         self.setHash()
         self.setDate()
 
@@ -240,6 +280,7 @@ class Car(object):
                 timeout=8
             )
 
+
     # ASSIGN MAKE PREFERENCES
     def makeVal(self):
         """
@@ -250,12 +291,15 @@ class Car(object):
             return main.brands[self.brand.lower()]
         return 0.75
 
+
     def cap(self, title):
         nameList = title.split()
         caps = ""
+
         for name in nameList:
             caps += name[0].upper() + name[1:] + " "
         return caps[:-1]
+
 
     def hash(self):
         """
@@ -264,6 +308,7 @@ class Car(object):
         """
         return int(self.score) * int(self.price) * len(self.model) + \
                int(self.miles) * int(self.year) * len(self.brand)
+
 
     # CONVERT TO STRING
     def __str__(self):
@@ -289,6 +334,7 @@ class Car(object):
                 output += "\n" + val[0] + ": " + str(val[1])
         return output
 
+
     # CONVERT TO DICTIONARY FOR CSV
     def toDict(self):
         """
@@ -310,6 +356,7 @@ class Car(object):
             "Image": self.image,
             "Hash": self.id,
         }
+
         if self.detailed and self.source in ["a"]:
             adVals = self.addDetails.items()
             for newVal in adVals:

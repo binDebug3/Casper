@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from imageio import imread
 
+
 def svd_approx(A, s):
     """Return the best rank s approximation to A with respect to the 2-norm
     and the Frobenius norm, along with the number of bytes needed to store
@@ -18,6 +19,7 @@ def svd_approx(A, s):
     U, W, V = la.svd(A)
     if s > len(W):
         raise ValueError("Rank request is too big")
+
     UHat = U[:,:s]
     WHat = W[:s]
     VHat = V[:s,:]
@@ -44,9 +46,11 @@ def compress_image(filename, s):
     red, costRed = svd_approx(image[:,:,0], s)
     green, costGreen = svd_approx(image[:,:,1], s)
     blue, costBlue = svd_approx(image[:,:,2], s)
+
     red = np.clip(red, 0, 1)
     green = np.clip(green, 0, 1)
     blue = np.clip(blue, 0, 1)
+
     grayScale = np.dstack([red, green, blue])
     entries -= costRed + costBlue + costGreen
 

@@ -16,6 +16,7 @@ class CD_Detail(object):
             self.stock_id = "None"
             self.comments = "None"
             self.features = "None"
+
         else:
             self.driver = driver
             self.link = str(link.get_attribute('href'))
@@ -35,9 +36,12 @@ class CD_Detail(object):
             self.findAttributes()
             self.driver.back()
 
+
     def findAttributes(self):
         attPath = "//div[@class='top']/div/dl/dd"
+
         attElems = self.driver.find_elements(By.XPATH, attPath)
+
         self.trim = attElems[0].text
         self.transmission = attElems[1].text
         self.engine = attElems[2].text
@@ -48,17 +52,23 @@ class CD_Detail(object):
         self.certified = attElems[7].text
         self.vin = attElems[8].text
 
+
     def findComments(self):
         commentPath = "//span/p"
         return self.driver.find_element(By.XPATH, commentPath).text
 
+
     def findFeatures(self):
         features = []
         featurePath = "//div[@class='feature-area']/ul/li/span"
+
         featureElems = self.driver.find_elements(By.XPATH, featurePath)
+
         for elem in featureElems:
             features.append(elem.text)
+
         return features
+
 
     # CONVERT TO STRING
     def __str__(self):
@@ -78,6 +88,7 @@ class CD_Detail(object):
         output += "\nStock ID: " + self.stock_id
         output += "\nFeatures: " + str(self.features)
         output += "\nComments: " + self.comments
+
         return output
 
     # CONVERT TO DICTIONARY FOR CSV

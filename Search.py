@@ -13,9 +13,11 @@ def checkDamage(comment):
                 'dysfunctional', 'maintenance problem', 'lemon',
                 'odometer discrepancy', 'repairable', 'earthquake',
                 'odometer rollback', 'water damage', 'recovered theft', 'buyback']
+
     for key in keyWords:
         if key in comment:
             return True
+
     return False
 
 
@@ -40,6 +42,7 @@ def findBrand(nameList):
     #     print(length)
     #     print(match)
     #     return " ".join(match)
+
     else:
         return match[0]
 
@@ -57,10 +60,12 @@ def findModel(nameList, brand):
             index = nameList.index(brand)
             # return the rest of the list following the brand
             return " ".join(nameList[index + 1:])
+
         except ValueError as ex:
             index = nameList.index(brand.split()[0])
             # return the rest of the list following the brand
             return " ".join(nameList[index + 1:])
+
     return "None"
 
 
@@ -74,6 +79,7 @@ def findYear(nameList):
     for word in nameList:
         if word.isdigit():
             return int(word)
+
     return 0
 
 
@@ -94,12 +100,16 @@ def getNewCars(retailer, garage):
     # compare each old ID to each new ID
     IDS = []
     for id in oldIDs:
+
         if isinstance(id, float) and not math.isnan(id):
             IDS.append(int(id))
+
         elif isinstance(id, int):
             IDS.append(id)
+
         elif isinstance(id, str) and id.isdigit():
             IDS.append(int(id))
+
     print(f"There are {len(IDS)} cars already in the table")
 
     # build list of car objects based on the list of IDs corresponding to new cars
@@ -107,6 +117,7 @@ def getNewCars(retailer, garage):
     for car in garage:
         if car.id not in IDS:
             newCars.append(car)
+
     return newCars
 
 
@@ -145,6 +156,7 @@ def toCSV(retailer, garage):
     # this is only useful when saving a new csv that does not already have columns
     columns = ["Make", "Model", "Score", "Price", "Year", "Mileage", "Date", "OnSale", "Days",
                "Source", "Link", "Image", "Hash"]
+
     # read the file and set OnSale to false
     fileName = "Data/" + retailer + ".csv"
     dfOld = pd.read_csv(fileName)

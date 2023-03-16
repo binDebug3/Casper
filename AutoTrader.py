@@ -1,14 +1,15 @@
+import time
+
 import main
 import Car
 import Search
-
-import time
 import Compresser
 
 import urllib.request
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+
 
 class AutoTrader(object):
     def __init__(self):
@@ -49,6 +50,7 @@ class AutoTrader(object):
         self.website = main.websites["AutoTrader"]
         self.driver.get(self.website)
         time.sleep(2)
+
         # call methods that scrape the website to build parameter lists
         self.cars = []
         self.resCount = self.getCount()
@@ -65,6 +67,7 @@ class AutoTrader(object):
         self.export = True
         self.retailer = "AutoTrader"
 
+
     def resetPage(self):
         """
         After website link has been updated and the driver has been closed, opens a new Chrome browser
@@ -77,14 +80,17 @@ class AutoTrader(object):
         self.driver = webdriver.Chrome(options=self.chrome_options,
                                        executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
         self.driver.get(self.getNextPage())
+
         # wait for page to load
         time.sleep(3)
+
         self.resCount = self.getCount()
         self.names = self.findNames()
         self.prices = self.findPrices()
         self.miles = self.findMiles()
         self.links = self.findLinks()
         self.images = self.findImages()
+
 
     def getNextPage(self):
         """
@@ -108,6 +114,7 @@ class AutoTrader(object):
         self.website = site
         return site
 
+
     def getCount(self):
         """
         Find the number of search results on one page and update self.resCount with it
@@ -116,6 +123,7 @@ class AutoTrader(object):
         """
         resCountID = "results-text-container"
         time.sleep(1)
+
         # get results text and parse it
         results = self.driver.find_element(By.CLASS_NAME, resCountID).text
         results = results.split()
@@ -129,6 +137,7 @@ class AutoTrader(object):
             time.sleep(2)
             self.getCount()
 
+
     def getPages(self):
         # UNUSED
         """
@@ -139,6 +148,7 @@ class AutoTrader(object):
         :return: nextPageButton (list): list of button elements to click in order to switch pages
         """
         pageClass = "//*[@class='margin-horizontal-lg pagination']"
+
         # get a list of button elements that represent the number of pages
         pageButtons = self.driver.find_element(By.XPATH, pageClass)
         text = pageButtons.text.split()
@@ -151,6 +161,7 @@ class AutoTrader(object):
         else:
             numPages = 1
             nextPageButton = None
+
         return numPages, nextPageButton
 
 
@@ -164,9 +175,11 @@ class AutoTrader(object):
         prices = []
         priceClass = "first-price"
         priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)
+
         for elem in priceElems:
             prices.append(elem.text.replace(",", ""))
         return prices
+
 
     def findMiles(self):
         """
@@ -177,10 +190,14 @@ class AutoTrader(object):
         # get a list of mileage elements and save the parsed text content
         miles = []
         mileClass = "item-card-specifications"
+
         mileElems = self.driver.find_elements(By.CLASS_NAME, mileClass)
+
         for elem in mileElems:
             miles.append(elem.text.replace(",", "").split()[0])
+
         return miles
+
 
     def findNames(self):
         """
@@ -192,9 +209,12 @@ class AutoTrader(object):
         # get a list of name elements and save the text content
         names = []
         nameID = "text-size-sm-500"
+
         nameElems = self.driver.find_elements(By.CLASS_NAME, nameID)
+
         for elem in nameElems:
             names.append(elem.text)
+
         return names
 
 
@@ -207,11 +227,15 @@ class AutoTrader(object):
         # get the link elements and build a list of their href attributes
         links = []
         linkPath = "//div[@class='display-flex justify-content-between']/a"
+
         linkElems = self.driver.find_elements(By.XPATH, linkPath)
+
         for elem in linkElems:
             carDetails = elem.get_attribute('href')
             links.append(carDetails)
+
         return links
+
 
     def findImages(self):
         """
@@ -222,17 +246,21 @@ class AutoTrader(object):
         # get a list of image elements
         images = []
         imageClass = "image-vertically-aligned"
+
         for i in range(1, self.resCount // 4 + 2):
             self.driver.execute_script("window.scrollTo(0, " + str(i*1000) + ")")
             time.sleep(0.2)
+
         imageElems = self.driver.find_elements(By.CLASS_NAME, imageClass)
 
         for elem in imageElems:
             # get the link to the element
             src = elem.get_attribute('src')
+
             # build a name for the image based on its alt text
             alt = "_".join(elem.get_attribute('alt').split()).replace("\\", "").replace("/", "")
             path = "Images/" + alt + ".png"
+
             # save the image
             try:
                 urllib.request.urlretrieve(src, path)
@@ -240,6 +268,7 @@ class AutoTrader(object):
                 print("Error retrieving image")
                 print(path)
                 print(ex)
+
             # compress with image with our custom compression algorithm woot woot
             try:
                 Compresser.compress_image(path, 50)
@@ -251,6 +280,7 @@ class AutoTrader(object):
                 print(error)
                 print()
                 images.append("No image")
+
         return images
 
 
@@ -258,6 +288,7 @@ class AutoTrader(object):
         if not send:
             print(f"I will not update the {self.retailer} CSV file on this round.")
             self.export = False
+
         # for each car on each page, build a Car object and set all of its attributes
         while self.resCount == 25:
             for i in range(self.resCount):
@@ -270,15 +301,18 @@ class AutoTrader(object):
                 car.setModel(Search.findModel(car.nameList, car.brand))
                 car.setYear(Search.findYear(car.nameList))
                 car.setSource(self.retailer)
+
                 if i < len(self.images):
                     car.setImage(self.images[i])
                 else:
                     car.setImage("Image not found")
+
                 car.setScore()
                 self.cars.append(car)
 
             # load the next page
             self.resetPage()
+
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
             Search.toCSV(self.retailer, sorted(self.cars, key=lambda x: x.score)[::-1])

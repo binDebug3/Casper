@@ -5,6 +5,7 @@ import CarsDirect
 import Carvana
 import Lowbook
 import Search
+
 from plyer import notification
 from datetime import date
 import os
@@ -30,9 +31,11 @@ p = {
     "yearWeight": 1,
     "makeWeight": 1,
 }
+
 fav = 1
 med = 0.5
 bad = 0
+
 brands = {"toyota": fav, "honda": fav, "chevrolet": med, "ford": fav, "mercedes-benz": bad,
           "jeep": bad, "bmw": bad, "porsche": bad, "subaru": med, "nissan": med,
           "volkswagen": med, "lexus": med, "acura": med, "dodge": bad, "hyundai": med,
@@ -40,11 +43,13 @@ brands = {"toyota": fav, "honda": fav, "chevrolet": med, "ford": fav, "mercedes-
           "mini": bad, "fiat": bad, "chrysler": bad, "buick": bad, "lincoln": bad, "audi": bad,
           "ram": bad, "scion": bad, "alfa": bad, "land": bad, "cadillac": bad, "smart": bad,
           "volvo": bad, "hummer": bad, "gmc": bad, "polaris": bad, "textron": bad, "harley": bad}
+
 # encode carsdirect parameters
 cdp = {"1050": "%600%600%6010%6014%60true%7C"}
 cdm = {"50000": "%601%600%600%609%60true%7C",
        "none": ""}
 cdy = {"0023": "%602%600%607%6030%60true%7C"}
+
 websites = {
             "AutoTrader": "https://www.autotrader.com/cars-for-sale/cars-under-" + p["maxPrice"] + "/" + p["city"] +
                           "-" + p["state"] + "-" + p["zipCode"] +
@@ -69,6 +74,7 @@ websites = {
                        "priceto=" + p["maxPrice"] + "&mileageto=" + p["maxMiles"] + "&sf=sf_location",
             "Carvana": "https://www.carvana.com/cars",
 }
+
 detailed = False
 selector = [3,4,5]
 # todo edit
@@ -118,6 +124,7 @@ if __name__ == "__main__":
         s = ""
     else:
         s = "s"
+
     notification.notify(
         title="Casper",
         message=f"Your data harvest for {len(selector)} retailer{s} on {date.today()} is done.",

@@ -8,6 +8,7 @@ from Casper.CG_Detail import CG_Detail
 
 import urllib
 from urllib.error import URLError
+
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
@@ -50,6 +51,7 @@ class CarGuru(object):
         self.chrome_options.add_argument("--disable-extensions")
         self.driver = webdriver.Chrome(options=self.chrome_options,
             executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
+
         self.driver.get(websites["CarGuru"])
         time.sleep(3)
 
@@ -58,6 +60,7 @@ class CarGuru(object):
         self.detailed = detailed
         self.compression = 50
         count = 0
+
         try:
             self.resCount = self.getCount()
             self.names = self.findNames()
@@ -76,13 +79,16 @@ class CarGuru(object):
             self.miles = self.findMiles()
             self.images = self.findImages()
             self.links, self.carDetails = self.findLinks()
+
         # page number not currently necessary and not functional for this site
         # self.pages, self.pageElems = self.getPages()
         self.export = True
         self.retailer = "CarGuru"
 
+
     def setExport(self, send):
         self.export = send
+
 
     def resetPage(self):
         """
@@ -99,13 +105,16 @@ class CarGuru(object):
         self.links = self.findLinks()
         self.images = self.findImages()
 
+
     def getNextPage(self):
         nextClass = "jX_mq2"
         button = self.driver.find_elements(By.CLASS_NAME, nextClass)
+
         if len(button) <= 1:
             button[0].click()
         else:
             button[1].click()
+
 
     def getCount(self):
         """
@@ -114,14 +123,17 @@ class CarGuru(object):
         :return:
         """
         resCountID = "eegHEr"
+
         try:
             results = self.driver.find_element(By.CLASS_NAME, resCountID).text.split()
             count = int(results[2]) - int(results[0]) + 1
             return count
+
         except (IndexError, NoSuchElementException):
             print("Waiting for page to load...")
             time.sleep(2)
             self.getCount()
+
 
     def getPages(self):
         # UNUSED
@@ -134,12 +146,16 @@ class CarGuru(object):
         """
         pages = []
         pageClass = ""
+
         pageElems = self.driver.find_elements(By.CLASS_NAME, pageClass)
+
         for page in pageElems:
             num = page.text
             if num.isdigit():
                 pages.append(int(num))
+
         return pages, pageElems
+
 
     def findPrices(self):
         """
@@ -149,23 +165,31 @@ class CarGuru(object):
         """
         prices = []
         priceClass = "JzvPHo"
+
         # get a list of price elements and save the parsed text content
         priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)[4:]
+
         for elem in priceElems:
             prices.append(elem.text.replace(",", "").replace("$", "").split()[0])
+
         return prices
+
 
     def setMileage(self):
         sliderClass = "E9RuSU"
         barClass = "P6sai1"
+
         slideButton = self.driver.find_element(By.CLASS_NAME, sliderClass)
         slider = self.driver.find_element(By.CLASS_NAME, barClass)
+
         length = float(slider.size["width"])
         totalPixels = 330000
         offset = int(- (totalPixels - int(main.p["maxMiles"])) / totalPixels * length)
+
         move = ActionChains(self.driver)
         move.click_and_hold(slideButton).move_by_offset(offset, 0).release().perform()
         time.sleep(1)
+
 
     def findMiles(self):
         """
@@ -175,12 +199,16 @@ class CarGuru(object):
         """
         miles = []
         mileClass = "//div/p/span[2]"
+
         # get a list of mileage elements and save the parsed text content
         mileElems = self.driver.find_elements(By.XPATH, mileClass)[::2][4:]
+
         for elem in mileElems:
             stat = elem.text.replace(",", "").split()[0]
             miles.append(stat)
+
         return miles
+
 
     def findNames(self):
         """
@@ -191,10 +219,13 @@ class CarGuru(object):
         """
         names = []
         nameID = "vO42pn"
+
         # get a list of name elements and save the text content
         nameElems = self.driver.find_elements(By.CLASS_NAME, nameID)[4:]
+
         for elem in nameElems:
             names.append(elem.text)
+
         return names
 
     def findLinks(self):
@@ -207,13 +238,17 @@ class CarGuru(object):
         carDetails = []
         actions = ActionChains(self.driver)
         linkPath = "//div[@class='MOfIEd XcutUU prRsnF']/a"
+
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.XPATH, linkPath)[4:]
+
         for elem in linkElems:
             links.append(elem.get_attribute('href'))
+
         if self.detailed:
             for i in range(len(links)):
                 print(f"(Car {i}) Checking: {self.names[i]}")
+
                 try:
                     elem = self.driver.find_elements(By.XPATH, linkPath)[4+i]
                     actions.move_to_element(elem).perform()
@@ -222,11 +257,14 @@ class CarGuru(object):
                     visible = CG_Detail(self.driver, elem)
                     carDetails.append(visible)
                     print(visible)
+
                 except ElementClickInterceptedException as ex:
                     print(f"Error searching car {i} - {self.names[i]}")
                     print(ex.msg)
                     carDetails.append(CG_Detail(None, None))
+
         return links, carDetails
+
 
     def findImages(self):
         """
@@ -237,13 +275,17 @@ class CarGuru(object):
         # get a list of image elements
         images = []
         imagePath = "//img[@class='C6f2e2 bmTmAy']"
+
         imageElems = self.driver.find_elements(By.XPATH, imagePath)
+
         for elem in imageElems:
             # get the link to the element
             src = elem.get_attribute('src')
+
             # build a name for the image based on its alt text
             alt = "_".join(elem.get_attribute('alt').split()).replace("\\", "").replace("/", "")
             path = "Images/" + alt + ".png"
+
             # save the image
             try:
                 urllib.request.urlretrieve(src, path)
@@ -251,10 +293,12 @@ class CarGuru(object):
                 print("Error retrieving image")
                 print(path)
                 print(ex)
+
             # compress with image with our custom compression algorithm woot woot
             try:
                 Compresser.compress_image(path, self.compression)
                 images.append(alt)
+
             except (FileNotFoundError, ValueError, IndexError) as error:
                 print("Image '" + alt + ".png' did not download properly")
                 print("More Details:")
@@ -262,20 +306,25 @@ class CarGuru(object):
                 print(error)
                 print()
                 images.append("No image")
+
         return images
+
 
     def peruseCars(self, send=True):
         if not send:
             print("I will not update the CSV file on this round.")
             self.export = False
+
         # for each car on each page, build a Car object and set all of its attributes
         while self.resCount == 15 and len(self.cars) < 200:
             time.sleep(0.5)
+
             for i in range(len(self.names)):
                 car = Car.Car(self.detailed)
                 car.setName(self.names[i])
                 car.setPrice(self.prices[i])
                 car.setMiles(self.miles[i])
+
                 try:
                     car.setLink(self.links[i])
                 except TypeError:
@@ -291,12 +340,14 @@ class CarGuru(object):
                     print(f"Car: {car.name}")
                     print()
                     self.links, self.carDetails = self.findLinks()
+
                 car.setBrand(Search.findBrand(car.nameList))
                 car.setModel(Search.findModel(car.nameList, car.brand))
                 car.setYear(Search.findYear(car.nameList))
                 car.setSource(self.retailer)
                 car.setImage(self.images[i])
                 car.setScore()
+
                 if self.detailed:
                     car.setAddDetail(self.carDetails[i])
                 self.cars.append(car)
@@ -308,6 +359,7 @@ class CarGuru(object):
                 self.resetPage()
             except:
                 self.resCount = 0
+
         # export new Car list to CSV
         if len(self.cars) > 0 and self.export:
             Search.toCSV(self.retailer, sorted(self.cars, key=lambda x: x.score)[::-1])

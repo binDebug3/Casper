@@ -50,6 +50,7 @@ class Carvana(object):
         self.chrome_options.add_argument("--disable-extensions")
         self.driver = webdriver.Chrome(options=self.chrome_options,
             executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
+
         self.driver.get(self.website)
         time.sleep(2)
 
@@ -58,11 +59,13 @@ class Carvana(object):
             try:
                 self.setUpPage()
                 wrongPage = False
+
             except IndexError as ex:
                 print("\tAlert: Refreshing page because website B loaded")
                 self.driver = webdriver.Chrome(options=self.chrome_options,
                                                executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
                 self.driver.get(self.website)
+
             time.sleep(2)
 
         self.cars = []
@@ -80,6 +83,7 @@ class Carvana(object):
 
             print("looking for links")
             self.links = []
+
             count = 0
             while len(self.links) < len(self.prices):
                 self.links, self.carDetails = self.findLinks()
@@ -99,8 +103,10 @@ class Carvana(object):
             self.miles = self.findMiles()
             self.images = self.findImages()
             self.links, self.carDetails = self.findLinks()
+
         self.export = True
         self.retailer = "Carvana"
+
 
     def setUpPage(self):
         buttonClass = "fivNwy"
@@ -112,10 +118,12 @@ class Carvana(object):
         priceButton = self.driver.find_elements(By.CLASS_NAME, buttonClass)
         priceButton = priceButton[0]
         priceButton.click()
+
         # switch from financed to prices
         financed = self.driver.find_elements(By.CLASS_NAME, "SwitchLabel-g8jqll-2")
         financed = financed[1]
         financed.click()
+
         # enter maximum price
         enterPrice = self.driver.find_elements(By.XPATH, priceInput)
         enterPrice = enterPrice[1]
@@ -132,17 +140,21 @@ class Carvana(object):
             e.send_keys(main.p["maxMiles"])
             time.sleep(0.1)
             c.click()
+
         except (InvalidSelectorException, ElementClickInterceptedException) as ex:
             print("\nMileage Error")
             print(ex.msg)
+
         except IndexError as ex:
             print("\nMileage Error")
             print(ex)
 
         self.website = str(self.driver.current_url)
 
+
     def setExport(self, send):
         self.export = send
+
 
     def resetPage(self):
         """
@@ -162,10 +174,12 @@ class Carvana(object):
 
     def getNextPage(self):
         end = self.website[-1]
+
         if end.isdigit():
             update = int(end)
             update += 1
             self.website = self.website[:-1] + str(update)
+
         else:
             self.website += "&page=2"
         self.driver.close()
@@ -173,27 +187,27 @@ class Carvana(object):
                                        executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
 
         self.driver.get(self.website)
+
         wrongPage = True
         while wrongPage:
             try:
-                # mileInput = "//input[@class='DebouncedInput__Input-sc-10o1wzo-1 jcBsSA']"
                 b = self.driver.find_elements(By.CLASS_NAME, "fivNwy")
+
                 c = b[3]
                 c.click()
-                # d = self.driver.find_elements(By.XPATH, mileInput)
-                # e = d[3]
-                # e.send_keys(main.p["maxMiles"])
-                # time.sleep(0.1)
-                # c.click()
                 wrongPage = False
+
             except IndexError as ex:
                 print(ex)
                 print(f"\tAlert: Refreshing page {self.website[-1]} because website B loaded instead")
                 self.driver = webdriver.Chrome(options=self.chrome_options,
                                                executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
+
                 print(self.website)
                 self.driver.get(self.website)
+
             time.sleep(2)
+
         print("Page:", end)
 
 
@@ -208,8 +222,10 @@ class Carvana(object):
 
         # get a list of price elements and save the parsed text content
         priceElems = self.driver.find_elements(By.XPATH, priceClass)
+
         for elem in priceElems:
             prices.append(elem.text.replace(",", "").replace("$", "").split()[0])
+
         return prices
 
 
@@ -224,10 +240,13 @@ class Carvana(object):
 
         # get a list of mileage elements and save the parsed text content
         mileElems = self.driver.find_elements(By.XPATH, milePath)
+
         for elem in mileElems:
             stat = elem.text.replace(",", "").split()[0]
             miles.append(stat)
+
         return miles
+
 
     def findNames(self):
         """
@@ -245,10 +264,12 @@ class Carvana(object):
             for elem in nameElems:
                 names.append(elem.text)
             return names
+
         except (IndexError, NoSuchElementException):
             print("Waiting for page to load...")
             time.sleep(2)
             self.findNames()
+
 
     def findLinks(self):
         """
@@ -263,20 +284,23 @@ class Carvana(object):
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.XPATH, linkPath)
         print("\nLinks")
+
         for i, elem in enumerate(linkElems):
             links.append(elem.get_attribute('href'))
             print(i, "\t", elem.get_attribute('href'))
-        # print(links)
 
         if self.detailed:
             for i in range(len(links)):
+
                 print(f"(Car {i}) Checking: {self.names[i]}")
                 try:
                     linkElems[i].click()
+
                 except ElementClickInterceptedException as ex:
                     break
 
         return links, carDetails
+
 
     def findImages(self):
         """
@@ -292,6 +316,7 @@ class Carvana(object):
         for elem in imageElems:
             # get the link to the element
             src = elem.get_attribute('src')
+
             # build a name for the image based on its alt text
             alt = "_".join(elem.get_attribute('alt').split())
             path = "Images/" + alt + ".png"
@@ -299,6 +324,7 @@ class Carvana(object):
             # save the image
             try:
                 urllib.request.urlretrieve(src, path)
+
             except URLError as ex:
                 print("Error retrieving image")
                 print(path)
@@ -308,6 +334,7 @@ class Carvana(object):
             try:
                 Compresser.compress_image(path, self.compression)
                 images.append(alt)
+
             except (FileNotFoundError, ValueError, IndexError) as error:
                 print("Image '" + alt + ".png' did not download properly")
                 print("More Details:")
@@ -315,7 +342,9 @@ class Carvana(object):
                 print(error)
                 print()
                 images.append("No image")
+
         return images
+
 
     def peruseCars(self, send=True):
         if not send:
@@ -325,6 +354,7 @@ class Carvana(object):
         # for each car on each page, build a Car object and set all of its attributes
         while self.resCount == 21 and len(self.cars) < 100:
             time.sleep(0.5)
+
             for i in range(len(self.names)):
                 car = Car.Car(self.detailed)
                 car.setName(self.names[i])
@@ -333,8 +363,10 @@ class Carvana(object):
 
                 try:
                     car.setLink(self.links[i])
+
                 except TypeError:
                     car.setLink(self.links[0][i])
+
                 except IndexError as ex:
                     print("Error in car object construction")
                     print(ex)

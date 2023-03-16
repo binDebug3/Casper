@@ -1,5 +1,4 @@
 import time
-from selenium.webdriver import ActionChains
 
 import Car
 import main
@@ -10,6 +9,8 @@ import urllib.request
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
+
 
 class KSL(object):
     def __init__(self, detailed=True):
@@ -34,10 +35,12 @@ class KSL(object):
         self.website = main.websites["KSL"]
         self.driver = webdriver.Chrome(
             executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
+
         self.driver.get(self.website)
         print("\n\nScanning KSL")
         print(self.website)
         time.sleep(5)
+
         self.cars = []
         self.detailed = detailed
 
@@ -45,8 +48,10 @@ class KSL(object):
         # self.resCount = self.getCount()
         self.names = self.findNames()
         print("getting prices")
+
         self.prices = self.findPrices()
         print("done getting prices")
+
         self.miles = self.findMiles()
         self.compression = 50
         # self.images = self.findImages()
@@ -57,9 +62,11 @@ class KSL(object):
 
         self.retailer = "KSL"
 
+
     def resetPage(self):
         # might not be necessary if I can get selenium to click like it's supposed to
         raise NotImplemented("Reset page: Can't go on...")
+
 
     def getCount(self):
         """
@@ -68,15 +75,18 @@ class KSL(object):
         :return:
         """
         resCountID = "eFxiFS"
+
         try:
             results = self.driver.find_element(By.CLASS_NAME, resCountID).text
             results = results.split()
             print(f"Found {int(results[0])} cars")
             return int(results[0])
+
         except (IndexError, NoSuchElementException):
             print("Waiting for page to load...")
             time.sleep(2)
             self.getCount()
+
 
     def findPrices(self):
         """
@@ -86,10 +96,13 @@ class KSL(object):
         """
         prices = []
         priceClass = "eaOVFJ"
+
         # get a list of price elements and save the parsed text content
         priceElems = self.driver.find_elements(By.CLASS_NAME, priceClass)
+
         for elem in priceElems:
             prices.append(elem.text.replace(",", "").replace("$", ""))
+
         return prices
 
     def findMiles(self):
@@ -100,14 +113,18 @@ class KSL(object):
         """
         miles = []
         mileClass = "kMOSqH"
+
         # get a list of mileage elements and save the parsed text content
         mileElems = self.driver.find_elements(By.CLASS_NAME, mileClass)
+
         for elem in mileElems:
             stat = elem.text.replace(",", "").split()[0]
             if stat[0].isdigit() and int(stat) == 0:
                 stat = main.p["altMax"]
             miles.append(stat)
+
         return miles
+
 
     def findNames(self):
         """
@@ -118,11 +135,15 @@ class KSL(object):
         """
         names = []
         nameID = "listing-title"
+
         # get a list of name elements and save the text content
         nameElems = self.driver.find_elements(By.CLASS_NAME, nameID)
+
         for elem in nameElems:
             names.append(elem.text)
+
         return names
+
 
     def findLinks(self):
         """
@@ -133,12 +154,16 @@ class KSL(object):
         links = []
         carDetails = []
         linkPath = "//div[@class='Listing__ListingInfoWrapper-sc-1v5k5vh-4 kEBiBz']/div/a"
+
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.XPATH, linkPath)
+
         for elem in linkElems:
             text = elem.text.split()
+
             if len(text) > 0 and text[0].isdigit():
                 links.append(elem.get_attribute('href'))
+
                 if self.detailed:
                     elem.click()
                     time.sleep(5)
@@ -150,7 +175,9 @@ class KSL(object):
                     print("Holding for 5 seconds")
                     time.sleep(5)
                     action.release(debot)
+
         return links
+
 
     def findImages(self):
         """
@@ -161,19 +188,25 @@ class KSL(object):
         # get a list of image elements
         images = []
         imageClass = "Listing__ListingImageAnchor-sc-1v5k5vh-1"
+
         imageElems = self.driver.find_elements(By.CLASS_NAME, imageClass)
+
         for elem in imageElems:
             # get the link to the element
             src = elem.get_attribute('src')
+
             # build a name for the image based on its alt text
             alt = "_".join(elem.get_attribute('alt').split()).replace("\\", "").replace("/", "")
             path = "Images/" + alt + ".png"
+
             # save the image
             urllib.request.urlretrieve(src, path)
+
             # compress with image with our custom compression algorithm woot woot
             try:
                 Compresser.compress_image(path, 50)
                 images.append(alt)
+
             except (FileNotFoundError, ValueError) as error:
                 print("Image '" + alt + "' did not load properly")
                 print("More Details:")
@@ -181,7 +214,9 @@ class KSL(object):
                 print(error)
                 print()
                 images.append("No image")
+
         return images
+
 
     def peruseCars(self):
         # for each car on each page, build a Car object and set all of its attributes
@@ -199,6 +234,7 @@ class KSL(object):
                 # car.setImage(self.images[i])
                 car.setScore()
                 self.cars.append(car)
+
             except IndexError as ex:
                 print(ex)
                 print(f"Index: {i}")

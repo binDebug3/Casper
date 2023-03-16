@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+
 class KSL_Detail(object):
     def __init__(self, driver, link):
         self.link = link.get_attribute('href')
@@ -33,14 +34,19 @@ class KSL_Detail(object):
         self.findAttributes()
         self.driver.back()
 
+
     def findAttributes(self):
         buttonClass = "seeMore"
         attPath = "//div[@class='top']/div/dl/dd"
+
         seeMore = self.driver.find_element(By.CLASS_NAME, buttonClass)
+
         if seeMore is not None:
             seeMore.click()
             "//div[@class='MuiGrid-root jss144']/p"
+
         attElems = self.driver.find_elements(By.XPATH, attPath)
+
         self.trim = attElems[0].text
         self.transmission = attElems[1].text
         self.engine = attElems[2].text
@@ -51,17 +57,23 @@ class KSL_Detail(object):
         self.certified = attElems[7].text
         self.vin = attElems[8].text
 
+
     def findComments(self):
         commentPath = "//span/p"
         return self.driver.find_element(By.XPATH, commentPath).text
 
+
     def findFeatures(self):
         features = []
         featurePath = "//div[@class='feature-area']/ul/li"
+
         featureElems = self.driver.find_elements(By.XPATH, featurePath)
+
         for elem in featureElems:
             features.append(elem.text)
+
         return features
+
 
     # CONVERT TO STRING
     def __str__(self):
@@ -92,7 +104,9 @@ class KSL_Detail(object):
             "\nTitle type: " + self.title + \
             "\nExterior Color: " + self.exterior + \
             "\nInterior Color: " + self.interior
+
         return output
+
 
     # CONVERT TO DICTIONARY FOR CSV
     def toDict(self):

@@ -8,14 +8,17 @@ import Search
 class CG_Detail(object):
     def __init__(self, driver, link):
         self.link = link.get_attribute('href')
+
         try:
             link.click()
+
         except ElementClickInterceptedException as ex:
             print("Click intercepted")
             print(ex.msg)
             time.sleep(1)
             print("Retrying link")
             link.click()
+
         self.owners = ""
         self.accidents = ""
         self.title = ""
@@ -42,7 +45,9 @@ class CG_Detail(object):
         self.cargo = ""
         self.bLeg = ""
         self.fLeg = ""
+
         time.sleep(0.1)
+
         self.markDown = self.findMarkDown()
         self.deal = self.findDeal()
         self.comments = self.findDescriptions()
@@ -53,9 +58,12 @@ class CG_Detail(object):
         self.findOverview()
         self.driver.back()
 
+
     def findAttributes(self):
         attPath = "//div/ul[@class='dTIusl']/li/div[2]/p[2]"
+
         attElems = self.driver.find_elements(By.XPATH, attPath)
+
         length = len(attElems)
         # if 0 < length:
         #     self.mileage = attElems[0].text
@@ -72,11 +80,14 @@ class CG_Detail(object):
         if 6 < length:
             self.transmission = attElems[6].text
 
+
     def findDeal(self):
         dealClass = "RJvEVf woFqWQ"
+
         try:
             dealElem = self.driver.find_element(By.CLASS_NAME, dealClass)
             return dealElem.text
+
         except NoSuchElementException as ex:
             print("Deal element not found")
             print(ex.msg)
@@ -86,10 +97,12 @@ class CG_Detail(object):
     def findMarkDown(self):
         markDownPath = "//section[@class='_3TqHJ']/h3"
         pricePath = "//section[@class='_3TqHJ']"
+
         try:
             priceElem = self.driver.find_element(By.XPATH, pricePath)
             markElem = self.driver.find_element(By.XPATH, markDownPath)
             return priceElem.text + " " + markElem.text
+
         except NoSuchElementException as ex:
             print("Markdown element not found")
             print(ex.msg)
@@ -99,34 +112,44 @@ class CG_Detail(object):
 
     def findDescriptions(self):
         descClass = "//section/div/div/p"
+
         descElem = self.driver.find_elements(By.XPATH, descClass)
         output = ""
+
         for elem in descElem:
             output += elem.text + "\n"
+
         return output
+
 
     def findOverview(self):
         features = {}
         featurePath = "//div/dl[@class='hP30qs']/dd"
         fNamePath = "//div/dl[@class='hP30qs']/dt"
         sectionClass = "sc-evZas geZswT"
+
         sectionElems = self.driver.find_elements(By.CLASS_NAME, sectionClass)[:6]
+
         print(f"Found {len(sectionElems)} sections")
         if len(sectionElems) == 0:
             time.sleep(180)
             quit()
+
         count = 0
         for section in sectionElems:
             featureElems = self.driver.find_elements(By.XPATH, featurePath)
             featureNames = self.driver.find_elements(By.XPATH, fNamePath)
+
             for i in range(len(featureElems)):
                 features.update({featureNames[i].text.lower(): featureElems[i].text.lower()})
+
             section.click()
             print(f"Found {len(features)} after searching {count} sections in findOverview")
 
         # updateBasic = False
         for param in features.keys():
             val = features.get(param)
+
             if "trim" in param:
                 self.trim = val
             elif "body" in param:
@@ -172,18 +195,24 @@ class CG_Detail(object):
 
         return features
 
+
     def findHistory(self):
         historyClass = "sc-iJkHyd feZLPP"
+
         historyElems = self.driver.find_elements(By.CLASS_NAME, historyClass)
+
         title = historyElems[6]
         accidents = historyElems[7]
         owner = historyElems[8]
+
         if "clean" in title.lower():
             self.title = "Clean"
         else:
             self.title = "Not clean"
+
         self.accidents = accidents.split()[0]
         self.owners = owner.split()[0]
+
         if len(historyElems) > 9:
             self.rental_use = True
         else:
@@ -194,7 +223,9 @@ class CG_Detail(object):
         safety = []
         options = []
         safetyPath = "//div/div/div/div/ul/li"
+
         safetyElems = self.driver.find_elements(By.XPATH, safetyPath)
+
         half = len(safetyElems) // 2
         for i, elem in enumerate(safetyElems):
             if elem.text is not None:
@@ -202,6 +233,7 @@ class CG_Detail(object):
                     safety.append(elem.text)
                 else:
                     options.append(elem.text)
+
         return safety, options
 
 
@@ -241,6 +273,7 @@ class CG_Detail(object):
         output += "\nSafety Features: " + str(self.safety)
         output += "\nAdditional Features: " + str(self.options)
         output += "\nComments: " + self.comments
+
         return output
 
     # CONVERT TO DICTIONARY FOR CSV
