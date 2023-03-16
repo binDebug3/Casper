@@ -4,7 +4,7 @@
     <h1 align="center">Casper</h1>
     <p align="center">
         A web scraping program that gathers online listings 
-        to generate used car purchase recommendations
+        to generate used car purchase recommendations by Dallin Stewart
     </p>
 </div>
 
@@ -18,8 +18,9 @@
     <li><a href="#description">Description</a></li>
     <li><a href="#instructions">Instructions for Download</a></li>
     <li><a href="#use">Instructions for Use</a></li>
-    <li><a href="#built">Built With</a></li>
+    <li><a href="#packages">Packages</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -32,7 +33,9 @@ most recent update, Casper only searches for cars in the Provo, Utah area. After
 data, Casper scores each car on how good of a deal the sale is and generates a CSV report of
 the current market in addition to the market history since November 2022.
 
-The name Casper is inspired by the Spanish word 'raspar', which means 'to scrape'.
+The name Casper is inspired by the Spanish word 'raspar', which means 'to scrape'. It is also 
+a reference to 'Casper the Friendly Ghost' because when Casper is running, it looks like a ghost
+is controlling your computer!
 
 <hr>
 
@@ -86,15 +89,15 @@ f) current_market.csv</br>
 
 <hr>
 
-### Built With
+### Packages
 
-[![Python][Python-icon]][Python-url] &emsp; &emsp; [![Jupyter][Jupyter-icon]][Jupyter-url] &emsp; &emsp; &nbsp; [![Numpy][Numpy-icon]][Numpy-url] 
+[![Python][Python-icon]][Python-url] &emsp; &emsp; [![Jupyter][Jupyter-icon]][Jupyter-url] &emsp; &emsp; &nbsp; 
+[![Numpy][Numpy-icon]][Numpy-url] &emsp; &emsp; [![Scipy][Scipy-icon]][Scipy-url]
 
-[![Scipy][Scipy-icon]][Scipy-url] &emsp; &emsp; &ensp; [![Matplotlib][Matplotlib-icon]][Matplotlib-url] &emsp; &emsp; [![ImageIO][ImageIO-icon]][ImageIO-url]
+[![Matplotlib][Matplotlib-icon]][Matplotlib-url] &emsp; &emsp; [![ImageIO][ImageIO-icon]][ImageIO-url] &emsp; &emsp;
+[![Pandas][Pandas-icon]][Pandas-url] &emsp; &emsp; [![Selenium][Selenium-icon]][Selenium-url]
 
-[![Pandas][Pandas-icon]][Pandas-url] &emsp; &emsp; [![Selenium][Selenium-icon]][Selenium-url] &emsp; &emsp; [![Plyer][Plyer-icon]][Plyer-url]
-
-[![PyTorch][PyTorch-icon]][PyTorch-url]
+[![PyTorch][PyTorch-icon]][PyTorch-url] &emsp; &emsp; [![Plyer][Plyer-icon]][Plyer-url]
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -107,6 +110,17 @@ Dallin Stewart - dallinpstewart@gmail.com
 [![LinkedIn][linkedin-icon]][linkedin-url]
 [![GitHub][github-icon]][github-url]
 [![Email][email-icon]][email-url]
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
+<hr>
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+* <a href='https://www.linkedin.com/in/benjamin-mcmullin/'>Benjamin McMullin</a> for writing Lowbook.py
+* Brigham Young University, Applied and Computational Mathematics - [About](https://acme.byu.edu/)
+* Brigham Young University Volume 1, Volume 2 Labs - [Lab Descriptions](https://acme.byu.edu/2022-2023-materials)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
