@@ -1,5 +1,7 @@
 import time
 
+from selenium.webdriver import Keys
+
 import Search
 import Car
 import main
@@ -52,9 +54,10 @@ class Carvana(object):
             executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
 
         self.driver.get(self.website)
-        time.sleep(2)
+        time.sleep(1)
+        self.setUpPage()
 
-        wrongPage = True
+        wrongPage = False
         while wrongPage:
             try:
                 self.setUpPage()
@@ -72,7 +75,6 @@ class Carvana(object):
         self.detailed = detailed
         self.compression = 50
         count = 0
-        self.getNextPage()
 
         try:
             self.names = self.findNames()
@@ -81,15 +83,14 @@ class Carvana(object):
             self.miles = self.findMiles()
             self.images = self.findImages()
 
-            print("looking for links")
-            self.links = []
+            self.links, self.carDetails = self.findLinks()
 
-            count = 0
-            while len(self.links) < len(self.prices):
-                self.links, self.carDetails = self.findLinks()
-                if count > 0:
-                    print("Retrying link search attempt:", count)
-                count += 1
+            # count = 0
+            # while len(self.links) < len(self.prices):
+            #     self.links, self.carDetails = self.findLinks()
+            #     if count > 0:
+            #         print("Retrying link search attempt:", count)
+            #     count += 1
 
         except StaleElementReferenceException as ex:
             time.sleep(2)
@@ -108,15 +109,17 @@ class Carvana(object):
         self.retailer = "Carvana"
 
 
+
     def setUpPage(self):
-        buttonClass = "fivNwy"
-        priceInput = "//input[@class='DebouncedInput__Input-sc-10o1wzo-1 cONhZv']"
-        mileInput = "//input[@class='DebouncedInput__Input-sc-10o1wzo-1 jcBsSA']"
+        buttonClass = "//p[@class='text-blue-6 t-header-s uppercase mb-0']"
+        priceInput = "//input[@class='DebouncedInput__Input-sc-ef00714-1 lhitCE']"
+        mileInput = "//input[@class='is-populated i3s7xuf fa89gdw']"
+
+        tabs = self.driver.find_elements(By.XPATH, buttonClass)
 
         # PRICES
         # click on prices button
-        priceButton = self.driver.find_elements(By.CLASS_NAME, buttonClass)
-        priceButton = priceButton[0]
+        priceButton = tabs[0]
         priceButton.click()
 
         # switch from financed to prices
@@ -127,27 +130,52 @@ class Carvana(object):
         # enter maximum price
         enterPrice = self.driver.find_elements(By.XPATH, priceInput)
         enterPrice = enterPrice[1]
+
+        # type in the max price
         enterPrice.send_keys(main.p["maxPrice"])
+        enterPrice.send_keys(Keys.RETURN)
+        time.sleep(0.1)
+
+        # close the menu
         priceButton.click()
+        time.sleep(0.1)
 
         # MILEAGE
         try:
-            b = self.driver.find_elements(By.CLASS_NAME, buttonClass)
-            c = b[3]
-            c.click()
-            d = self.driver.find_elements(By.XPATH, mileInput)
-            e = d[3]
-            e.send_keys(main.p["maxMiles"])
+            # find and click on mileage button bc it keeps changing
+            index = 0
+            for i in range(0, 10):
+                if tabs[i].text == "YEAR & MILEAGE":
+                    index = i
+                    break
+            milesButton = tabs[index]
+            milesButton.click()
             time.sleep(0.1)
-            c.click()
 
-        except (InvalidSelectorException, ElementClickInterceptedException) as ex:
+            # click on max mileage input box
+            end_miles = self.driver.find_elements(By.XPATH, mileInput)
+            enterMiles = end_miles[3]
+            enterMiles.click()
+
+            # clear the input box and enter the max mileage
+            enterMiles.send_keys(Keys.BACK_SPACE)
+            enterMiles.send_keys(main.p["maxMiles"])
+            enterMiles.send_keys(Keys.RETURN)
+            time.sleep(0.1)
+
+            # close the menu
+            milesButton.click()
+
+        except (InvalidSelectorException, ElementClickInterceptedException, ElementNotInteractableException) as ex:
             print("\nMileage Error")
             print(ex.msg)
 
         except IndexError as ex:
             print("\nMileage Error")
             print(ex)
+            print("miles button:", type(milesButton))
+            print("end miles:", type(end_miles), len(end_miles))
+
 
         self.website = str(self.driver.current_url)
 
@@ -188,26 +216,6 @@ class Carvana(object):
 
         self.driver.get(self.website)
 
-        wrongPage = True
-        while wrongPage:
-            try:
-                b = self.driver.find_elements(By.CLASS_NAME, "fivNwy")
-
-                c = b[3]
-                c.click()
-                wrongPage = False
-
-            except IndexError as ex:
-                print(ex)
-                print(f"\tAlert: Refreshing page {self.website[-1]} because website B loaded instead")
-                self.driver = webdriver.Chrome(options=self.chrome_options,
-                                               executable_path=r"C:\Users\dalli\PycharmProjects\CarMarket\Casper\chromedriver_win32\chromedriver.exe")
-
-                print(self.website)
-                self.driver.get(self.website)
-
-            time.sleep(2)
-
         print("Page:", end)
 
 
@@ -218,7 +226,7 @@ class Carvana(object):
         :return: prices (list): list of price strings
         """
         prices = []
-        priceClass = "//div[@data-testid='price']"
+        priceClass = "//div[@data-qa='price']"
 
         # get a list of price elements and save the parsed text content
         priceElems = self.driver.find_elements(By.XPATH, priceClass)
@@ -256,7 +264,7 @@ class Carvana(object):
         :return: names (list): list of name strings
         """
         names = []
-        nameClass = "make-model"
+        nameClass = "year-make"
 
         try:
             # get a list of name elements and save the text content
@@ -279,15 +287,13 @@ class Carvana(object):
         """
         links = []
         carDetails = []
-        linkPath = "//div[@class='result-tile']/a"
+        linkPath = "//div[@class='result-tile m:border-solid m:border m:rounded-md m:border-grey-2']/a"
 
         # get the link elements and build a list of their href attributes
         linkElems = self.driver.find_elements(By.XPATH, linkPath)
-        print("\nLinks")
 
         for i, elem in enumerate(linkElems):
             links.append(elem.get_attribute('href'))
-            print(i, "\t", elem.get_attribute('href'))
 
         if self.detailed:
             for i in range(len(links)):
@@ -298,6 +304,8 @@ class Carvana(object):
 
                 except ElementClickInterceptedException as ex:
                     break
+
+        print(f"Found {len(links)} links on page {self.website[-1]}")
 
         return links, carDetails
 
@@ -363,10 +371,8 @@ class Carvana(object):
 
                 try:
                     car.setLink(self.links[i])
-
                 except TypeError:
                     car.setLink(self.links[0][i])
-
                 except IndexError as ex:
                     print("Error in car object construction")
                     print(ex)
@@ -377,7 +383,7 @@ class Carvana(object):
                     print(f"\tMiles length: {len(self.miles)}")
                     print(f"\tLinks length: {len(self.links)}")
                     print("\t", self.website)
-                    input("Press enter to continue:\n")
+                    print()
 
                 car.setBrand(Search.findBrand(car.nameList))
                 car.setModel(Search.findModel(car.nameList, car.brand))

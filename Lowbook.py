@@ -63,13 +63,9 @@ class Lowbook(object):
 
         try:
             self.names = self.findNames()
-            print(self.names)
             self.resCount = len(self.names)
-            print(self.resCount)
             self.prices = self.findPrices()
-            print(self.prices)
             self.miles = self.findMiles()
-            print(self.miles)
             self.images = self.findImages()
             self.links, self.carDetails = self.findLinks()
 
@@ -373,12 +369,5 @@ class Lowbook(object):
             self.resetPage()
 
         # export new Car list to CSV
-        print("len self.cars ", len(self.cars))
-        print("self.export", self.export)
-
         if len(self.cars) > 0 and self.export:
-            print("self.retailer", self.retailer)
-            print("len of big thing", len(sorted(self.cars, key=lambda x: x.score)[::-1]))
-            print("big things first val", sorted(self.cars, key=lambda x: x.score)[::-1][0])
-
             Search.toCSV(self.retailer, sorted(self.cars, key=lambda x: x.score)[::-1])

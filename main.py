@@ -76,7 +76,7 @@ websites = {
 }
 
 detailed = False
-selector = [1, 2, 3, 4, 6]
+selector = [5]
 # todo edit
 
 
