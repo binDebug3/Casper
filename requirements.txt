@@ -1,0 +1,7 @@
+plyer
+selenium
+urllib
+pandas
+scipy
+numpy
+imageio
