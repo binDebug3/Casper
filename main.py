@@ -5,6 +5,9 @@ import CarsDirect
 import Carvana
 import Lowbook
 import Search
+from DeepLearning import find_damage
+from matplotlib import pyplot as plt
+from matplotlib.image import imread
 
 from plyer import notification
 from datetime import date
@@ -76,7 +79,7 @@ websites = {
 }
 
 detailed = False
-selector = [5]
+selector = []
 # todo edit
 
 
@@ -133,7 +136,8 @@ if __name__ == "__main__":
     )
 
     # open the corresponding Excel file
-    os.system(csv)
+    # os.system(csv)
+
 
 # list of things to do
 # TODO NLP understand descriptions
